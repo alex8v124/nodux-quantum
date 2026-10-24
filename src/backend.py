@@ -76,6 +76,8 @@ def serve_index():
 
 @app.route("/<path:path>")
 def serve_static(path):
+    if path.startswith("api/"):
+        return jsonify({"status": "error", "message": f"Endpoint /{path} no encontrado"}), 404
     file_path = os.path.join(UI_DIR, path)
     if os.path.exists(file_path):
         return send_from_directory(UI_DIR, path)
@@ -86,6 +88,7 @@ def serve_static(path):
 
 # ----------------- REST API ENDPOINTS -----------------
 @app.route("/api/health", methods=["GET"])
+@app.route("/health", methods=["GET"])
 def health():
     """Estado y telemetría de infraestructura del backend."""
     import qiskit
@@ -99,6 +102,7 @@ def health():
     })
 
 @app.route("/api/instances", methods=["GET"])
+@app.route("/instances", methods=["GET"])
 def get_instances():
     """Catálogo de dimensiones, matrices y óptimos de referencia."""
     data = load_data()
@@ -117,6 +121,9 @@ def get_instances():
     })
 
 @app.route("/api/optimize", methods=["POST"])
+@app.route("/optimize", methods=["POST"])
+@app.route("/api/solve", methods=["POST"])
+@app.route("/solve", methods=["POST"])
 def optimize():
     """
     Endpoint principal de optimización:
@@ -213,6 +220,7 @@ def optimize():
         }), 500
 
 @app.route("/api/roi", methods=["POST"])
+@app.route("/roi", methods=["POST"])
 def calculate_roi():
     """
     Cálculo de impacto de picking y ROI operativo dinámico:
