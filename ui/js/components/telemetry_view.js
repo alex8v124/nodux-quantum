@@ -18,9 +18,9 @@ window.TelemetryView = {
         c_method: "Fuerza Bruta Clásica",
         q_cost: 24.0,
         q_gap: 0.00,
-        q_time: "0.1055 s",
+        q_time: "0.1703 s",
         q_feas: "100.0%",
-        q_raw_feas: "1.37%",
+        q_raw_feas: "1.56%",
         q_method: "Qiskit Aer QAOA (p=1)"
       },
       {
@@ -33,9 +33,9 @@ window.TelemetryView = {
         c_method: "Fuerza Bruta Clásica",
         q_cost: 32.0,
         q_gap: 0.00,
-        q_time: "0.6800 s",
+        q_time: "5.9807 s",
         q_feas: "100.0%",
-        q_raw_feas: "0.78%",
+        q_raw_feas: "0.04%",
         q_method: "Qiskit Aer QAOA (p=1)"
       },
       {
@@ -48,7 +48,7 @@ window.TelemetryView = {
         c_method: "2-Opt Iterated Local Search",
         q_cost: 350.0,
         q_gap: 2.94,
-        q_time: "1.5800 s",
+        q_time: "2.4840 s",
         q_feas: "100.0%",
         q_raw_feas: "0.04%",
         q_method: "Nodux Q-LNS (9 cúbits núcleo)"

@@ -25,7 +25,7 @@ from business_roi import WarehousePickingImpactModel
 
 def main():
     print("=" * 80)
-    print("⚛️ NODUX • IBM QUANTUM HACKATHON 2026 · RETO NTT DATA QAP10")
+    print("⚛️ NODUX • QISKIT FALL FEST LIMA 2026 · RETO NTT DATA QAP10")
     print("Célula: Nodux Core Team (Nicolás López, Alexander Miranda, Walter Carpio, Jesús Regalado)")
     print("Objetivo: 110 PUNTOS | Track Abierto: Almacén B2B y Picking Ferretero-Industrial")
     print("=" * 80)

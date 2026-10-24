@@ -111,8 +111,14 @@ def run_scalability_benchmark(output_dir: str = "results") -> pd.DataFrame:
         # 4. Quantum-Classical Hybrid LNS (Scalable decomposition on K=3 -> 9 qubits)
         print(f"Running Quantum-Classical Hybrid LNS (K=3, 9 qubits core)...")
         hybrid_lns = QuantumHybridLNS(problem, subproblem_size=3, seed=42)
-        # Use greedy warm start for high N
-        h_res = hybrid_lns.solve(max_iterations=20, initial_perm=greedy_res["best_perm"])
+        # Use 2-Opt warm start for N>=10 to match benchmark.py and official telemetry
+        if N >= 10:
+            print(f"  Initializing with 2-Opt warm start for N={N}...")
+            two_opt_res = solvers.solve_2opt(max_restarts=5)
+            warm_start_perm = two_opt_res["best_perm"]
+        else:
+            warm_start_perm = greedy_res["best_perm"]
+        h_res = hybrid_lns.solve(max_iterations=20, initial_perm=warm_start_perm)
         hybrid_cost = h_res["best_cost"]
         hybrid_time = h_res["elapsed_seconds"]
         hybrid_gap = problem.gap(hybrid_cost, ref_opt) if ref_opt > 0 else 0.0

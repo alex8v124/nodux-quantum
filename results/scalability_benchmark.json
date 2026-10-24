@@ -7,18 +7,18 @@
     "Hybrid_Quantum_Memory": "8.0 KiB (Constante)",
     "Reference_Optimum": 24.0,
     "Greedy_Cost": 24.0,
-    "Greedy_Time_s": 0.0001,
+    "Greedy_Time_s": 0.0,
     "Greedy_Gap_Pct": 0.0,
     "SA_Cost": 24.0,
-    "SA_Time_s": 0.5188,
+    "SA_Time_s": 0.1778,
     "SA_Gap_Pct": 0.0,
     "Direct_QAOA_Viable": true,
-    "Direct_QAOA_Feas_Frac": 0.39,
+    "Direct_QAOA_Feas_Frac": 1.37,
     "Direct_QAOA_Repaired_Cost": 24.0,
-    "Direct_QAOA_Time_s": 0.2403,
+    "Direct_QAOA_Time_s": 0.1425,
     "Hybrid_LNS_Cost": 24.0,
     "Hybrid_LNS_Gap_Pct": 0.0,
-    "Hybrid_LNS_Time_s": 1.669
+    "Hybrid_LNS_Time_s": 1.7322
   },
   {
     "N": 4,
@@ -31,15 +31,15 @@
     "Greedy_Time_s": 0.0,
     "Greedy_Gap_Pct": 31.25,
     "SA_Cost": 32.0,
-    "SA_Time_s": 0.4149,
+    "SA_Time_s": 0.2213,
     "SA_Gap_Pct": 0.0,
     "Direct_QAOA_Viable": true,
-    "Direct_QAOA_Feas_Frac": 0.1,
+    "Direct_QAOA_Feas_Frac": 0.0,
     "Direct_QAOA_Repaired_Cost": 32.0,
-    "Direct_QAOA_Time_s": 6.3116,
+    "Direct_QAOA_Time_s": 4.4198,
     "Hybrid_LNS_Cost": 32.0,
     "Hybrid_LNS_Gap_Pct": 0.0,
-    "Hybrid_LNS_Time_s": 1.5859
+    "Hybrid_LNS_Time_s": 1.6198
   },
   {
     "N": 5,
@@ -52,7 +52,7 @@
     "Greedy_Time_s": 0.0,
     "Greedy_Gap_Pct": 0.0,
     "SA_Cost": 58.0,
-    "SA_Time_s": 0.4038,
+    "SA_Time_s": 0.2442,
     "SA_Gap_Pct": 0.0,
     "Direct_QAOA_Viable": false,
     "Direct_QAOA_Feas_Frac": 0.0,
@@ -60,7 +60,7 @@
     "Direct_QAOA_Time_s": null,
     "Hybrid_LNS_Cost": 58.0,
     "Hybrid_LNS_Gap_Pct": 0.0,
-    "Hybrid_LNS_Time_s": 1.6349
+    "Hybrid_LNS_Time_s": 1.6523
   },
   {
     "N": 10,
@@ -73,15 +73,15 @@
     "Greedy_Time_s": 0.0001,
     "Greedy_Gap_Pct": 37.06,
     "SA_Cost": 354.0,
-    "SA_Time_s": 0.7473,
+    "SA_Time_s": 0.4398,
     "SA_Gap_Pct": 4.12,
     "Direct_QAOA_Viable": false,
     "Direct_QAOA_Feas_Frac": 0.0,
     "Direct_QAOA_Repaired_Cost": null,
     "Direct_QAOA_Time_s": null,
-    "Hybrid_LNS_Cost": 378.0,
-    "Hybrid_LNS_Gap_Pct": 11.18,
-    "Hybrid_LNS_Time_s": 1.7328
+    "Hybrid_LNS_Cost": 352.0,
+    "Hybrid_LNS_Gap_Pct": 3.53,
+    "Hybrid_LNS_Time_s": 1.6773
   },
   {
     "N": 13,
@@ -94,15 +94,15 @@
     "Greedy_Time_s": 0.0001,
     "Greedy_Gap_Pct": 24.85,
     "SA_Cost": 652.0,
-    "SA_Time_s": 1.0382,
+    "SA_Time_s": 0.7141,
     "SA_Gap_Pct": 0.0,
     "Direct_QAOA_Viable": false,
     "Direct_QAOA_Feas_Frac": 0.0,
     "Direct_QAOA_Repaired_Cost": null,
     "Direct_QAOA_Time_s": null,
-    "Hybrid_LNS_Cost": 670.0,
-    "Hybrid_LNS_Gap_Pct": 2.76,
-    "Hybrid_LNS_Time_s": 1.7172
+    "Hybrid_LNS_Cost": 644.0,
+    "Hybrid_LNS_Gap_Pct": -1.23,
+    "Hybrid_LNS_Time_s": 1.8427
   },
   {
     "N": 14,
@@ -115,14 +115,14 @@
     "Greedy_Time_s": 0.0001,
     "Greedy_Gap_Pct": 30.08,
     "SA_Cost": 798.0,
-    "SA_Time_s": 1.184,
+    "SA_Time_s": 1.3305,
     "SA_Gap_Pct": 0.0,
     "Direct_QAOA_Viable": false,
     "Direct_QAOA_Feas_Frac": 0.0,
     "Direct_QAOA_Repaired_Cost": null,
     "Direct_QAOA_Time_s": null,
-    "Hybrid_LNS_Cost": 800.0,
-    "Hybrid_LNS_Gap_Pct": 0.25,
-    "Hybrid_LNS_Time_s": 1.5779
+    "Hybrid_LNS_Cost": 812.0,
+    "Hybrid_LNS_Gap_Pct": 1.75,
+    "Hybrid_LNS_Time_s": 1.7807
   }
 ]

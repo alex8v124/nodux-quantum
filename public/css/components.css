@@ -317,3 +317,257 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 8. Executive Dashboard Components (IBM Carbon / McKinsey standard) */
+.verdict-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-success);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-subtle);
+  gap: 16px;
+}
+
+.verdict-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.verdict-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.verdict-badge {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+  border: 1px solid var(--color-success-border);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Causal Value Chain */
+.causal-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+}
+
+.causal-chip {
+  flex: 1;
+  min-width: 180px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.causal-chip.highlight {
+  background: var(--color-primary-subtle);
+  border-color: #a6c8ff;
+}
+
+.causal-step-num {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.causal-step-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.causal-step-val {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.causal-step-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.causal-arrow {
+  color: var(--border-strong);
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Provenance Badges */
+.provenance-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-provenance-real {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.badge-provenance-simulated {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-provenance-projected {
+  background: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+/* Hatched Stripe Pattern for Liberated Minutes */
+.hatched-liberated {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(25, 128, 56, 0.35),
+    rgba(25, 128, 56, 0.35) 6px,
+    rgba(25, 128, 56, 0.7) 6px,
+    rgba(25, 128, 56, 0.7) 12px
+  );
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Technical Confidence Franja */
+.confidence-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.conf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.conf-chip b {
+  color: var(--text-primary);
+}
+
+.conf-chip-quantum {
+  background: var(--color-quantum-subtle);
+  border-color: var(--color-quantum-border);
+  color: #5319a8;
+}
+
+/* Pipeline Grid */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pipeline-step {
+  border-radius: var(--radius-xs);
+  padding: 8px 6px;
+  font-size: 10px;
+  text-align: center;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pipeline-step .p-num {
+  font-size: 9px;
+  font-weight: 800;
+  opacity: 0.7;
+}
+
+.pipeline-step .p-title {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pipeline-classical {
+  background: #edf5ff;
+  border-color: #a6c8ff;
+  color: #0043ce;
+}
+
+.pipeline-quantum {
+  background: #f6f2ff;
+  border-color: #d4bbff;
+  color: #6929c4;
+}
+
+/* Claims Grid */
+.claim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-top: 10px;
+}
+
+.claim-card {
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  border: 1px solid;
+}
+
+.claim-card.affirm {
+  background: #defbe6;
+  border-color: #a7f0ba;
+  color: #0e4f21;
+}
+
+.claim-card.deny {
+  background: #fff1f1;
+  border-color: #ffd7d9;
+  color: #750e13;
+}

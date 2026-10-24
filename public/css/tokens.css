@@ -44,6 +44,10 @@
   --color-info: #0043ce;
   --color-info-bg: #edf5ff;
 
+  --color-quantum: #8a3ffc;          /* IBM Quantum Purple */
+  --color-quantum-subtle: #f6f2ff;
+  --color-quantum-border: #d4bbff;
+
   /* Espaciado Modular */
   --spacing-xxs: 2px;
   --spacing-xs: 4px;

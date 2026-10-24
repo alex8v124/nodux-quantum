@@ -15,7 +15,7 @@ window.RoiView = {
         <div class="panel">
           <div class="panel-header">
             <div class="panel-title">
-              <span>Simulador de Productividad de Almacén (Track Abierto: Bonificación +10 Pts)</span>
+              <span>Simulador de Productividad de Almacén & Retorno de Inversión (ROI)</span>
             </div>
             <div class="panel-actions">
               <span class="kpi-badge badge-success">Caso: B2B Ferretero-Industrial</span>

@@ -33,7 +33,7 @@
 **Voz: Walter "Wali" Carpio (Head of Data & BI)**
 > *(Cambio a Slide 3)*
 > *"Gracias, Nicolás. Desde la ingeniería de datos, auditamos y decodificamos el archivo oficial `qap10.mps.gz` de MIPLIB.*
-> *El archivo contiene **4,150 variables binarias en total**: 100 variables de asignación $X_{ij}$ y **4,050 variables linealizadas de producto $Y_{ijkl}$** con coeficiente en la función objetivo `NOBJ`. Mapeamos el 100% de los 4,050 términos a los pares de flujo y distancia, recuperando las matrices canónicas $F$ y $D$ con **coincidencia matemática exacta**.*
+> *El archivo contiene **4,150 variables totales del modelo linealizado**: 100 variables binarias de asignación $X_{ij}$ y **4,050 variables auxiliares de linealización $Y_{ijkl}$** con coeficiente en la función objetivo `NOBJ`. Mapeamos el 100% de los 4,050 términos a los pares de flujo y distancia, recuperando las matrices canónicas $F$ y $D$ con **coincidencia matemática exacta**.*
 >
 > *Desarrollamos solvers clásicos exactos y validamos rigurosamente los tres ground truths de control del reto:*
 > *• Subinstancia $N=3$: Costo Óptimo Exacto = **24.0***

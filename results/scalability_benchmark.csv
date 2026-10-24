@@ -1,7 +1,7 @@
 N,QUBO_Variables,Permutations_Feasible,Statevector_Memory_Direct,Hybrid_Quantum_Memory,Reference_Optimum,Greedy_Cost,Greedy_Time_s,Greedy_Gap_Pct,SA_Cost,SA_Time_s,SA_Gap_Pct,Direct_QAOA_Viable,Direct_QAOA_Feas_Frac,Direct_QAOA_Repaired_Cost,Direct_QAOA_Time_s,Hybrid_LNS_Cost,Hybrid_LNS_Gap_Pct,Hybrid_LNS_Time_s
-3,9,6,8.0 KiB,8.0 KiB (Constante),24.0,24.0,0.0001,0.0,24.0,0.5188,0.0,True,0.39,24.0,0.2403,24.0,0.0,1.669
-4,16,24,1.0 MiB,8.0 KiB (Constante),32.0,42.0,0.0,31.25,32.0,0.4149,0.0,True,0.1,32.0,6.3116,32.0,0.0,1.5859
-5,25,120,512.0 MiB,8.0 KiB (Constante),58.0,58.0,0.0,0.0,58.0,0.4038,0.0,False,0.0,,,58.0,0.0,1.6349
-10,100,3628800,10^31.3 B (Inviable),8.0 KiB (Constante),340.0,466.0,0.0001,37.06,354.0,0.7473,4.12,False,0.0,,,378.0,11.18,1.7328
-13,169,6227020800,10^52.1 B (Inviable),8.0 KiB (Constante),652.0,814.0,0.0001,24.85,652.0,1.0382,0.0,False,0.0,,,670.0,2.76,1.7172
-14,196,87178291200,10^60.2 B (Inviable),8.0 KiB (Constante),798.0,1038.0,0.0001,30.08,798.0,1.184,0.0,False,0.0,,,800.0,0.25,1.5779
+3,9,6,8.0 KiB,8.0 KiB (Constante),24.0,24.0,0.0,0.0,24.0,0.1778,0.0,True,1.37,24.0,0.1425,24.0,0.0,1.7322
+4,16,24,1.0 MiB,8.0 KiB (Constante),32.0,42.0,0.0,31.25,32.0,0.2213,0.0,True,0.0,32.0,4.4198,32.0,0.0,1.6198
+5,25,120,512.0 MiB,8.0 KiB (Constante),58.0,58.0,0.0,0.0,58.0,0.2442,0.0,False,0.0,,,58.0,0.0,1.6523
+10,100,3628800,10^31.3 B (Inviable),8.0 KiB (Constante),340.0,466.0,0.0001,37.06,354.0,0.4398,4.12,False,0.0,,,352.0,3.53,1.6773
+13,169,6227020800,10^52.1 B (Inviable),8.0 KiB (Constante),652.0,814.0,0.0001,24.85,652.0,0.7141,0.0,False,0.0,,,644.0,-1.23,1.8427
+14,196,87178291200,10^60.2 B (Inviable),8.0 KiB (Constante),798.0,1038.0,0.0001,30.08,798.0,1.3305,0.0,False,0.0,,,812.0,1.75,1.7807

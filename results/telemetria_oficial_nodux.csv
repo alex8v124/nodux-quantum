@@ -1,4 +1,4 @@
 Escala_N,Cúbits_QUBO,Óptimo_Control_NTT,Wali_Costo_Clásico,Wali_Gap_Pct,Wali_Tiempo_s,Alexander_Costo_Cuántico,Alexander_Gap_Pct,Alexander_Tasa_Factibilidad_Pct,Alexander_Factibilidad_Cruda_Pct,Alexander_Tiempo_s,Método_Cuántico
-3,9,24.0,24.0,0.0,0.0,24.0,0.0,100.0,1.56,0.1948,"QAOA (p=1, 9 cúbits)"
-4,16,32.0,32.0,0.0,0.0001,32.0,0.0,100.0,0.04,6.2086,"QAOA (p=1, 16 cúbits)"
-10,100,340.0,466.0,37.06,0.0001,350.0,2.94,100.0,0.04,2.2101,Nodux Q-LNS (9 cúbits núcleo)
+3,9,24.0,24.0,0.0,0.0,24.0,0.0,100.0,1.56,0.1703,"QAOA (p=1, 9 cúbits)"
+4,16,32.0,32.0,0.0,0.0001,32.0,0.0,100.0,0.04,5.9807,"QAOA (p=1, 16 cúbits)"
+10,100,340.0,466.0,37.06,0.0001,350.0,2.94,100.0,0.04,2.484,Nodux Q-LNS (9 cúbits núcleo)
