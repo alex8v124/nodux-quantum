@@ -1,0 +1,12 @@
+{
+  "instance": "qap10",
+  "dimension": 10,
+  "total_linearized_terms": 4050,
+  "verified_exact_matches": 4050,
+  "exact_recovery": true,
+  "control_optima": {
+    "N=3": 24,
+    "N=4": 32,
+    "N=10": 340
+  }
+}
