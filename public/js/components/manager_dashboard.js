@@ -249,9 +249,14 @@ window.ManagerDashboard = {
             </div>
           </div>
 
-          <button class="btn btn-primary" id="btnGoToPlant" style="height: 28px; font-size: 11px; padding: 0 12px;">
-            Ver Operación en Planta 👉
-          </button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" id="btnGoToBenchmark" style="height: 28px; font-size: 11px; padding: 0 12px; border-color: #0f62fe; color: #0f62fe;">
+              Modelo Comparativo Q-Slotting 📊
+            </button>
+            <button class="btn btn-primary" id="btnGoToPlant" style="height: 28px; font-size: 11px; padding: 0 12px;">
+              Ver Operación en Planta 👉
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1157,6 +1162,15 @@ window.ManagerDashboard = {
     if (btnGoToPlant) {
       btnGoToPlant.addEventListener("click", () => {
         const tabBtn = document.querySelector(`.nav-tab[data-tab="warehouse"]`);
+        if (tabBtn) tabBtn.click();
+      });
+    }
+
+    // Go to Benchmark Model Button
+    const btnGoToBenchmark = container.querySelector("#btnGoToBenchmark");
+    if (btnGoToBenchmark) {
+      btnGoToBenchmark.addEventListener("click", () => {
+        const tabBtn = document.querySelector(`.nav-tab[data-tab="telemetry"]`);
         if (tabBtn) tabBtn.click();
       });
     }

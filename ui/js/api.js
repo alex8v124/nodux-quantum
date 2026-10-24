@@ -81,6 +81,14 @@ class ApiClient {
       timeout: 15000
     });
   }
+
+  static async getBenchmark(params = { scale_n: 10 }) {
+    return this.request("/api/benchmark", {
+      method: "POST",
+      body: JSON.stringify(params),
+      timeout: 15000
+    });
+  }
 }
 
 window.ApiClient = ApiClient;
