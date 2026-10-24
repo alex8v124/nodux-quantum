@@ -340,7 +340,7 @@ window.TelemetryView = {
       </div>
 
       <!-- 3. COMPARATIVA VISUAL: GRÁFICO DE BARRAS DE COSTO Y BRECHA (GAP) -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+      <div class="responsive-two-col" style="margin-bottom: var(--spacing-lg);">
         
         <!-- Gráfico de Comparación de Costo -->
         <div class="panel">
@@ -354,29 +354,29 @@ window.TelemetryView = {
           </div>
           <div class="panel-body">
             <div style="width: 100%; height: 180px;">
-              <svg viewBox="0 0 480 150" width="100%" height="100%" style="overflow: visible;">
+              <svg viewBox="0 0 520 150" width="100%" height="100%" style="overflow: hidden;">
                 <!-- Target Line 340 -->
-                <line x1="80" y1="125" x2="440" y2="125" stroke="#cbd5e1" stroke-width="1"/>
+                <line x1="125" y1="125" x2="490" y2="125" stroke="#cbd5e1" stroke-width="1"/>
                 
-                <!-- Greedy: 466 -> width ~300 -->
-                <text x="75" y="30" font-size="10" font-weight="700" fill="#374151" text-anchor="end">Greedy Clásico</text>
-                <rect x="85" y="18" width="300" height="18" fill="#da1e28" rx="3"/>
-                <text x="395" y="32" font-size="10" font-family="monospace" font-weight="800" fill="#da1e28">466.0 pts</text>
+                <!-- Greedy: 466 -> width ~270 -->
+                <text x="115" y="30" font-size="10" font-weight="700" fill="#374151" text-anchor="end">Greedy Clásico</text>
+                <rect x="125" y="18" width="270" height="18" fill="#da1e28" rx="3"/>
+                <text x="405" y="32" font-size="10" font-family="monospace" font-weight="800" fill="#da1e28">466.0 pts</text>
 
-                <!-- 2-Opt: 372 -> width ~240 -->
-                <text x="75" y="65" font-size="10" font-weight="700" fill="#374151" text-anchor="end">2-Opt Local</text>
-                <rect x="85" y="53" width="240" height="18" fill="#d97706" rx="3"/>
-                <text x="335" y="67" font-size="10" font-family="monospace" font-weight="800" fill="#d97706">372.0 pts</text>
+                <!-- 2-Opt: 372 -> width ~215 -->
+                <text x="115" y="65" font-size="10" font-weight="700" fill="#374151" text-anchor="end">2-Opt Local</text>
+                <rect x="125" y="53" width="215" height="18" fill="#d97706" rx="3"/>
+                <text x="350" y="67" font-size="10" font-family="monospace" font-weight="800" fill="#d97706">372.0 pts</text>
 
-                <!-- Q-Slotting: 350 -> width ~225 -->
-                <text x="75" y="100" font-size="10" font-weight="800" fill="#198038" text-anchor="end">Q-Slotting Híbrido</text>
-                <rect x="85" y="88" width="225" height="18" fill="#198038" rx="3"/>
-                <text x="320" y="102" font-size="10" font-family="monospace" font-weight="800" fill="#198038">350.0 pts (-24.9%)</text>
+                <!-- Q-Slotting: 350 -> width ~202 -->
+                <text x="115" y="100" font-size="10" font-weight="800" fill="#198038" text-anchor="end">Q-Slotting Híbrido</text>
+                <rect x="125" y="88" width="202" height="18" fill="#198038" rx="3"/>
+                <text x="337" y="102" font-size="10" font-family="monospace" font-weight="800" fill="#198038">350.0 pts (-24.9%)</text>
 
-                <!-- Ground Truth: 340 -> width ~219 -->
-                <text x="75" y="135" font-size="10" font-weight="700" fill="#0043ce" text-anchor="end">MIPLIB C*</text>
-                <rect x="85" y="123" width="219" height="18" fill="#0043ce" opacity="0.8" rx="3"/>
-                <text x="314" y="137" font-size="10" font-family="monospace" font-weight="800" fill="#0043ce">340.0 pts (Óptimo)</text>
+                <!-- Ground Truth: 340 -> width ~197 -->
+                <text x="115" y="135" font-size="10" font-weight="700" fill="#0043ce" text-anchor="end">MIPLIB C*</text>
+                <rect x="125" y="123" width="197" height="18" fill="#0043ce" opacity="0.8" rx="3"/>
+                <text x="332" y="137" font-size="10" font-family="monospace" font-weight="800" fill="#0043ce">340.0 pts (Óptimo)</text>
               </svg>
             </div>
             <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 6px;">
@@ -397,26 +397,26 @@ window.TelemetryView = {
           </div>
           <div class="panel-body">
             <div style="width: 100%; height: 180px;">
-              <svg viewBox="0 0 480 150" width="100%" height="100%" style="overflow: visible;">
-                <!-- Greedy: +37.06% -> width 280 -->
-                <text x="80" y="30" font-size="10" font-weight="700" fill="#374151" text-anchor="end">Greedy</text>
-                <rect x="90" y="18" width="280" height="18" fill="#da1e28" rx="3"/>
+              <svg viewBox="0 0 520 150" width="100%" height="100%" style="overflow: hidden;">
+                <!-- Greedy: +37.06% -> width 260 -->
+                <text x="100" y="30" font-size="10" font-weight="700" fill="#374151" text-anchor="end">Greedy</text>
+                <rect x="110" y="18" width="260" height="18" fill="#da1e28" rx="3"/>
                 <text x="380" y="32" font-size="10" font-family="monospace" font-weight="800" fill="#da1e28">+37.06%</text>
 
-                <!-- 2-Opt: +9.41% -> width 75 -->
-                <text x="80" y="65" font-size="10" font-weight="700" fill="#374151" text-anchor="end">2-Opt</text>
-                <rect x="90" y="53" width="75" height="18" fill="#d97706" rx="3"/>
-                <text x="175" y="67" font-size="10" font-family="monospace" font-weight="800" fill="#d97706">+9.41%</text>
+                <!-- 2-Opt: +9.41% -> width 66 -->
+                <text x="100" y="65" font-size="10" font-weight="700" fill="#374151" text-anchor="end">2-Opt</text>
+                <rect x="110" y="53" width="66" height="18" fill="#d97706" rx="3"/>
+                <text x="186" y="67" font-size="10" font-family="monospace" font-weight="800" fill="#d97706">+9.41%</text>
 
-                <!-- Q-Slotting: +2.94% -> width 25 -->
-                <text x="80" y="100" font-size="10" font-weight="800" fill="#198038" text-anchor="end">Q-Slotting</text>
-                <rect x="90" y="88" width="30" height="18" fill="#198038" rx="3"/>
-                <text x="130" y="102" font-size="10" font-family="monospace" font-weight="800" fill="#198038">+2.94% (Zona Verde)</text>
+                <!-- Q-Slotting: +2.94% -> width 21 -->
+                <text x="100" y="100" font-size="10" font-weight="800" fill="#198038" text-anchor="end">Q-Slotting</text>
+                <rect x="110" y="88" width="21" height="18" fill="#198038" rx="3"/>
+                <text x="140" y="102" font-size="10" font-family="monospace" font-weight="800" fill="#198038">+2.94% (Zona Verde)</text>
 
                 <!-- Ground Truth: 0.00% -->
-                <text x="80" y="135" font-size="10" font-weight="700" fill="#0043ce" text-anchor="end">MIPLIB C*</text>
-                <line x1="90" y1="120" x2="90" y2="145" stroke="#0043ce" stroke-width="3"/>
-                <text x="100" y="137" font-size="10" font-family="monospace" font-weight="800" fill="#0043ce">0.00% (Ground Truth)</text>
+                <text x="100" y="135" font-size="10" font-weight="700" fill="#0043ce" text-anchor="end">MIPLIB C*</text>
+                <line x1="110" y1="120" x2="110" y2="145" stroke="#0043ce" stroke-width="3"/>
+                <text x="120" y="137" font-size="10" font-family="monospace" font-weight="800" fill="#0043ce">0.00% (Ground Truth)</text>
               </svg>
             </div>
             <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 6px;">

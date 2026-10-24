@@ -374,8 +374,8 @@ def ibm_transpile():
     """
     try:
         req = request.get_json(force=True) or {}
-        n = int(req.get("scale_n", 3))
-        backend_name = req.get("backend_name", "ibm_brisbane")
+        n = int(req.get("scale_n", 10))
+        backend_name = req.get("backend_name", "ibm_fez")
         opt_level = int(req.get("optimization_level", 2))
 
         data = load_data()
@@ -384,7 +384,9 @@ def ibm_transpile():
         from qap_problem import QAPProblem
         from quantum_qaoa import QuantumQAOA
 
-        sub_n = min(n, 3) # QAOA kernel acotado a 9 cúbits
+        # Para N=10 el núcleo cuántico Q-LNS compila a K=3 (9 cúbits)
+        # Para N=3 compila 9 cúbits; para N=4 compila 16 cúbits
+        sub_n = 3 if n >= 10 else n
         prob = QAPProblem(F_full[:sub_n, :sub_n], D_full[:sub_n, :sub_n])
         qaoa = QuantumQAOA(prob, reps=1)
 
@@ -395,6 +397,7 @@ def ibm_transpile():
         )
         report["scale_n"] = n
         report["subproblem_qubits"] = sub_n * sub_n
+        report["is_hybrid_qlns"] = (n >= 10)
         return jsonify(report)
     except Exception as e:
         return jsonify({
