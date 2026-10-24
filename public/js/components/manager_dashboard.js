@@ -298,7 +298,7 @@ window.ManagerDashboard = {
       </div>
 
       <!-- NIVEL 2: HERO KPI + 4 TARJETAS SECUNDARIAS (B2, B3, A4, A3) -->
-      <div style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+      <div class="dashboard-kpi-grid">
         
         <!-- HERO KPI: Ahorro Anualizado Proyectado -->
         <div class="panel" style="padding: 14px 16px; border-left: 4px solid var(--color-primary); background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);">
@@ -413,7 +413,7 @@ window.ManagerDashboard = {
       </div>
 
       <!-- NIVEL 3: EVIDENCIA VISUAL 1 & 2 (CORRECCIÓN H1 Y H2) -->
-      <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+      <div class="dashboard-chart-grid">
         
         <!-- GRÁFICO RECONCILIADO 1: EVOLUCIÓN TEMPORAL RECONCILIADA (H1, A1, E1, Figura 8) -->
         <div class="panel">
@@ -658,7 +658,7 @@ window.ManagerDashboard = {
       </div>
 
       <!-- NIVEL 3: GRÁFICO 3 & 4 (WATERFALL DE AHORROS Y COMPARATIVA DUMBBELL) -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+      <div class="responsive-two-col" style="margin-bottom: var(--spacing-lg);">
         
         <!-- GRÁFICO 3: WATERFALL DE AHORROS MENSUALES (D1, Figura 6) -->
         <div class="panel">
@@ -824,7 +824,7 @@ window.ManagerDashboard = {
           </div>
         </div>
         <div class="panel-body">
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+          <div class="dashboard-four-grid">
             
             <!-- Bullet 1: Ahorro Financiero -->
             <div style="background: var(--bg-subtle); padding: 10px; border-radius: 4px; border: 1px solid var(--border-subtle);">

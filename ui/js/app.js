@@ -131,8 +131,39 @@ document.addEventListener("DOMContentLoaded", async () => {
       tab.classList.add("active");
       const tabKey = tab.dataset.tab;
       store.setState({ activeTab: tabKey });
+      closeSidebarOnMobile();
     });
   });
+
+  // Sidebar Toggle & Responsive Drawer Controller
+  const elBtnToggleSidebar = document.getElementById("btnToggleSidebar");
+  const elSidebar = document.querySelector(".control-sidebar");
+  const elBackdrop = document.getElementById("sidebarBackdrop");
+
+  function closeSidebarOnMobile() {
+    if (window.innerWidth <= 1024 && elSidebar && elSidebar.classList.contains("open")) {
+      elSidebar.classList.remove("open");
+      if (elBackdrop) elBackdrop.classList.remove("active");
+    }
+  }
+
+  if (elBtnToggleSidebar && elSidebar) {
+    elBtnToggleSidebar.addEventListener("click", () => {
+      if (window.innerWidth <= 1024) {
+        elSidebar.classList.toggle("open");
+        if (elBackdrop) elBackdrop.classList.toggle("active");
+      } else {
+        elSidebar.classList.toggle("collapsed");
+      }
+    });
+  }
+
+  if (elBackdrop && elSidebar) {
+    elBackdrop.addEventListener("click", () => {
+      elSidebar.classList.remove("open");
+      elBackdrop.classList.remove("active");
+    });
+  }
 
   // 4. Scale Selector
   elScaleButtons.forEach((btn) => {

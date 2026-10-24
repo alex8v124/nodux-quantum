@@ -457,11 +457,11 @@ window.TelemetryView = {
         </div>
 
         <div class="panel-body">
-          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px;">
+          <div class="responsive-ten-bays-grid" style="margin-bottom: 12px;">
             ${layoutCardsHtml}
           </div>
 
-          <div style="background: var(--bg-subtle); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 10px 14px; font-size: 11px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="background: var(--bg-subtle); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 10px 14px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
             <div>
               <span style="font-weight: 700; color: var(--text-primary);">Diagnóstico Técnico del Layout:</span>
               <span style="color: var(--text-secondary); margin-left: 6px;">${activeModel.behavior}</span>
@@ -475,7 +475,7 @@ window.TelemetryView = {
 
       <!-- 5. MANUAL DE DEFENSA EN 4 NIVELES PARA EL PITCH (PÁGINA 1 DEL DOSSIER) -->
       <div class="panel">
-        <div class="panel-header" style="background: var(--bg-surface);">
+        <div class="panel-header" style="background: var(--bg-surface); flex-wrap: wrap; gap: 8px;">
           <div>
             <div class="panel-title" style="font-size: 13px;">
               <span>Manual de Defensa Progresiva en 4 Niveles (Guía Oficial de Exposición para Alexis)</span>
@@ -506,7 +506,7 @@ window.TelemetryView = {
   renderDefenseLevelContent(level) {
     if (level === 1) {
       return `
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg);">
+        <div class="responsive-two-col">
           <div style="background: var(--bg-subtle); padding: 14px; border-radius: 4px; border-left: 4px solid var(--color-primary);">
             <h4 style="font-size: 13px; font-weight: 800; color: var(--color-primary); margin: 0 0 6px 0;">
               El Dilema Real del Almacén B2B (Fundamento Intuitivo)
@@ -535,7 +535,7 @@ window.TelemetryView = {
       `;
     } else if (level === 2) {
       return `
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md);">
+        <div class="responsive-three-col">
           <!-- Pilar 1 -->
           <div style="background: var(--bg-subtle); padding: 14px; border-radius: 4px; border: 1px solid var(--border-subtle);">
             <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px;">
