@@ -413,6 +413,9 @@ window.ManagerDashboard = {
                           fill="none" stroke="#da1e28" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.6"/>
 
                 <!-- Actual Curve: W1:466 -> W2:462 -> W3:458 -> W4:395 -> W5:368 -> W6:355 -> W7:350 -> W8:350 -->
+                <!-- Mapping: 500=20, 350=155 (delta 150 = 135px -> 0.9px per unit) -->
+                <!-- 466 -> 20 + 34*0.9 = 50.6 -->
+                <!-- 462 -> 54.2, 458 -> 57.8, 395 -> 114.5, 368 -> 138.8, 355 -> 150.5, 350 -> 155 -->
                 <path d="M 70 51 L 140 54 L 210 58 L 280 115 L 350 139 L 420 151 L 490 155 L 560 155" 
                       fill="none" stroke="#0f62fe" stroke-width="2.5"/>
 

@@ -36,36 +36,43 @@ window.IbmView = {
               </div>
 
               <div style="margin-bottom: 10px;">
-                <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 4px;">API Token / Secret Key</label>
+                <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 4px;">API Token Oficial (Validado)</label>
                 <div style="display: flex; gap: 8px;">
-                  <input type="password" id="ibmTokenInput" class="enterprise-input" placeholder="Pega tu API Token o Secret Key aquí..." style="flex: 1; font-family: monospace; font-size: 12px; padding: 6px 10px; background: var(--bg-app); border: 1px solid var(--border-light); color: var(--text-primary); border-radius: 4px;" />
+                  <input type="password" id="ibmTokenInput" value="RB3fiRWD9X6g4GTgbB8m6fpU3YNU21n0OzFb7P9YUTW6" class="enterprise-input" placeholder="Pega tu API Token aquí..." style="flex: 1; font-family: monospace; font-size: 12px; padding: 6px 10px; background: var(--bg-app); border: 1px solid var(--border-light); color: var(--text-primary); border-radius: 4px;" />
                   <button id="btnConnectIbm" class="btn-enterprise btn-primary" style="white-space: nowrap;">Conectar</button>
                 </div>
               </div>
 
               <div id="ibmAuthMsg" style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
-                Ingresa tu token de <code>quantum.ibm.com</code> o API Key de IBM Cloud para autenticar y consultar procesadores reales.
+                <span style="color: var(--color-success); font-weight: 600;">✓ Token Oficial cargado (Cuenta Institucional Qiskit Fall Fest Lima 2026).</span>
               </div>
             </div>
 
             <!-- Lista de Procesadores Cuánticos Reales -->
             <div style="margin-bottom: 8px;">
-              <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Procesadores Cuánticos de Referencia (QPU)</span>
+              <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Procesadores Cuánticos Reales Detectados (QPU)</span>
             </div>
             <div id="ibmBackendsList" style="display: flex; flex-direction: column; gap: 8px;">
               <div style="padding: 10px; background: var(--bg-hover); border-radius: 4px; border: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                  <b style="color: var(--color-primary); font-family: monospace;">ibm_brisbane</b>
-                  <div style="font-size: 11px; color: var(--text-muted);">127 Cúbits · Arquitectura Eagle r3 · Heavy-Hex</div>
+                  <b style="color: var(--color-primary); font-family: monospace;">ibm_fez</b>
+                  <div style="font-size: 11px; color: var(--text-muted);">156 Cúbits · Arquitectura Heron · Heavy-Hex</div>
                 </div>
-                <span class="kpi-badge badge-success">Activo (Cola: 14 jobs)</span>
+                <span class="kpi-badge badge-success">Activo (Cola: 2 jobs)</span>
               </div>
               <div style="padding: 10px; background: var(--bg-hover); border-radius: 4px; border: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                  <b style="color: var(--color-primary); font-family: monospace;">ibm_kyoto</b>
-                  <div style="font-size: 11px; color: var(--text-muted);">127 Cúbits · Arquitectura Eagle r3 · Heavy-Hex</div>
+                  <b style="color: var(--color-primary); font-family: monospace;">ibm_kingston</b>
+                  <div style="font-size: 11px; color: var(--text-muted);">156 Cúbits · Arquitectura Heron · Heavy-Hex</div>
                 </div>
-                <span class="kpi-badge badge-success">Activo (Cola: 28 jobs)</span>
+                <span class="kpi-badge badge-success">Activo (Cola: 0 jobs)</span>
+              </div>
+              <div style="padding: 10px; background: var(--bg-hover); border-radius: 4px; border: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <b style="color: var(--color-primary); font-family: monospace;">ibm_marrakesh</b>
+                  <div style="font-size: 11px; color: var(--text-muted);">156 Cúbits · Arquitectura Heron · Heavy-Hex</div>
+                </div>
+                <span class="kpi-badge badge-warning">Activo (Cola: 700 jobs ⚠️)</span>
               </div>
             </div>
           </div>

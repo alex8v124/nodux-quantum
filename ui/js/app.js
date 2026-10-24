@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   function renderActiveTab(state) {
     if (!elWorkspaceContent) return;
     switch (state.activeTab) {
+      case "dashboard":
+        window.ManagerDashboard.render(elWorkspaceContent, state);
+        break;
       case "warehouse":
         window.WarehouseView.render(elWorkspaceContent, state);
         break;
