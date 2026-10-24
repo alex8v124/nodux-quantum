@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "src/backend.py": {
+      "includeFiles": [
+        "data/**",
+        "ui/**",
+        "assets/**"
+      ],
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "src/backend.py"
+    }
+  ]
+}

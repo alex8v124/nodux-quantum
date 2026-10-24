@@ -13,8 +13,13 @@ import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
-# Add src to path
-SRC_DIR = os.path.dirname(__file__)
+# Path configuration with normalized absolute paths for resilient cloud & local execution
+SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(SRC_DIR, ".."))
+UI_DIR = os.path.join(ROOT_DIR, "ui")
+ASSETS_DIR = os.path.join(ROOT_DIR, "assets")
+DATA_PATH = os.path.join(ROOT_DIR, "data", "matrices_F_D.json")
+
 if SRC_DIR not in sys.path:
     sys.path.append(SRC_DIR)
 
@@ -22,10 +27,8 @@ from classical_solver import ClassicalSolver
 from quantum_solver import QuantumSolver
 from business_roi import WarehousePickingImpactModel
 
-app = Flask(__name__, static_folder="../ui")
+app = Flask(__name__, static_folder=UI_DIR)
 CORS(app)
-
-DATA_PATH = os.path.join(SRC_DIR, "../data/matrices_F_D.json")
 
 PRODUCT_FAMILIES = [
     "Familia Pernos y Tuercas Hexagonales",
@@ -68,20 +71,17 @@ def load_data():
 # ----------------- STATIC ASSET ROUTES -----------------
 @app.route("/")
 def serve_index():
-    ui_dir = os.path.join(SRC_DIR, "../ui")
-    return send_from_directory(ui_dir, "index.html")
+    return send_from_directory(UI_DIR, "index.html")
 
 @app.route("/<path:path>")
 def serve_static(path):
-    ui_dir = os.path.join(SRC_DIR, "../ui")
-    file_path = os.path.join(ui_dir, path)
+    file_path = os.path.join(UI_DIR, path)
     if os.path.exists(file_path):
-        return send_from_directory(ui_dir, path)
+        return send_from_directory(UI_DIR, path)
     # Check assets directory
-    assets_dir = os.path.join(SRC_DIR, "../assets")
-    if os.path.exists(os.path.join(assets_dir, path)):
-        return send_from_directory(assets_dir, path)
-    return send_from_directory(ui_dir, "index.html")
+    if os.path.exists(os.path.join(ASSETS_DIR, path)):
+        return send_from_directory(ASSETS_DIR, path)
+    return send_from_directory(UI_DIR, "index.html")
 
 # ----------------- REST API ENDPOINTS -----------------
 @app.route("/api/health", methods=["GET"])
