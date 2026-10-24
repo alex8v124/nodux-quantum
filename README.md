@@ -29,20 +29,21 @@
 nodux-qap10-quantum/
 ├── data/
 │   ├── matrices_F_D.json       # Matrices simétricas F y D (10x10) e insumos de Wali
-│   ├── qap10.mps.gz            # Archivo oficial MIPLIB qap10
+│   ├── qap10.mps.gz            # Archivo oficial MIPLIB qap10 (4,150 variables)
 │   └── qap10.sol.gz            # Solución de referencia oficial MIPLIB (340.0)
 ├── src/
-│   ├── qubo_builder.py         # Formulación QUBO, penalizador lambda y mapeo Ising
+│   ├── qubo_builder.py         # Formulación QUBO, penalizador lambda=60 y mapeo Ising
 │   ├── classical_solver.py     # Solver clásico exacto y 2-Opt ILS genuino de Wali
 │   ├── quantum_solver.py       # Solvers cuánticos QAOA (Aer) y descomposición Q-LNS
 │   ├── business_roi.py         # Modelo de impacto económico S/ 280,000 en almacén B2B
-│   └── backend.py              # Micro-API local en Flask (Endpoints REST /api/...)
+│   └── backend.py              # Micro-API local en Flask multihilo (Endpoints REST /api/...)
 ├── ui/                         # Plataforma Empresarial de Decisiones Cuánticas
 │   ├── css/                    # Design System (tokens, layout industrial, componentes)
 │   ├── js/                     # Arquitectura modular (api client, state store, renderers)
 │   └── index.html              # Shell semántico estructurado de alta densidad
 ├── tests/
-│   └── test_system.py          # Suite de pruebas automatizadas CI/CD (100% passing)
+│   ├── test_system.py          # Suite de pruebas automatizadas CI/CD (100% passing)
+│   └── test_api.py             # Pruebas de integración sobre endpoints REST en vivo
 ├── demo/
 │   ├── README.md               # Pauta técnica para el video de contingencia de 60s
 │   └── backup_demo.mp4         # Video de respaldo grabado
@@ -51,10 +52,37 @@ nodux-qap10-quantum/
 │   └── GUION_PITCH_3_MINUTOS.md            # Guion cronometrado para los 4 integrantes
 ├── benchmark.py                # Telemetría oficial Alexander vs Wali
 ├── run_demo.py                 # Comando oficial de ejecución en consola en 1 línea
-├── run_platform.bat            # Lanzador unificado en 1 clic offline para Windows
+├── run_cockpit.bat             # Lanzador unificado en 1 clic offline para Windows
 ├── requirements.txt            # Dependencias fijas reproducibles
 └── README.md                   # Documentación técnica
 ```
+
+---
+
+## 📐 Modelo Matemático e Instancia MIPLIB qap10 (Walter Carpio & Alexander Miranda)
+
+### 1. Variables de la Instancia y Convención Canónica ($i < k$)
+* **Instancia oficial:** `data/qap10.mps.gz` (MIPLIB `qap10`).
+* **Conteo de Variables:** Contiene **4,150 variables totales (100 binarias de asignación $X_{ij}$ y 4,050 continuas linealizadas $Y_{ijkl}$)** asociadas a la función objetivo `NOBJ` ($\binom{10}{2} \times 10 \times 9 = 45 \times 90 = 4,050$) y 1,820 restricciones de igualdad.
+* **Convención de Conteo Único ($i < k$):** La función de costo:
+  $$\min_x C(x) = \sum_{i < k} \sum_{j \neq l} F_{ik} D_{jl} x_{ij} x_{kl}$$
+  está implementada rigurosamente en `src/parser.py`, `src/qubo_builder.py`, `src/quantum_solver.py` y `src/classical_solver.py`, garantizando que ningún par se duplique y verificando los óptimos de control oficiales:
+  * Subinstancia $N=3$: $C^*(3) = \mathbf{24.0}$
+  * Subinstancia $N=4$: $C^*(4) = \mathbf{32.0}$
+  * Instancia Completa $N=10$: $C^*(10) = \mathbf{340.0}$ (Ground truth MIPLIB)
+
+### 2. Formulación QUBO y Derivación Calibrada de $\lambda = 60.0$
+* **Hamiltoniano Penalizado:** $H(x) = C(x) + \lambda \sum_i (\sum_j x_{ij} - 1)^2 + \lambda \sum_j (\sum_i x_{ij} - 1)^2$.
+* **Cota Analítica para el Núcleo Cuántico ($K=3$):** Para que ningún estado inválido tenga menor energía que el óptimo factible:
+  $$\lambda > \Delta C_{\max}^{(K=3)} = \max_i \left( \sum_{k \neq i} F_{ik} \right) \cdot \max_{j, l} D_{jl} = 16 \times 2 = 32.0 \quad (\text{cota teórica conservadora: } 40.0)$$
+* **Barrido Empírico de Sensibilidad (`qubo_builder.py`):**
+  El escaneo en `scan_lambda_sensitivity([10, 30, 50, 60, 100])` demuestra que para $\lambda < 30.0$ la factibilidad colapsa; entre 40 y 50 entra en zona límite; y en **$\lambda = 60.0$** provee un factor de seguridad de **$1.5\times$** sobre la cota teórica de 40.0, protegiendo al optimizador variacional COBYLA sin achatamiento espectral.
+
+### 3. Documentación Rigurosa del Muro de Memoria NISQ
+* **Inviabilidad Monolítica en $N=10$:** Un circuito QUBO directo de 100 cúbits exige simular $2^{100} \approx 1.26 \times 10^{30}$ amplitudes complejas, demandando **$\sim 2 \times 10^{31}$ bytes ($\sim 20$ millones de Yottabytes)** de memoria, físicamente imposible en computación clásica e inoperable en procesadores NISQ debido a ruido y decoherencia.
+* **Escalabilidad Comprobada (Etapa 3 Finalistas):** La arquitectura **Quantum Large Neighborhood Search (Q-LNS)** desacopla el problema en sub-vecindarios cuánticos activos de **9 cúbits** ($K=3$) manteniendo la memoria cuántica acotada a **8.0 KiB**, validando convergencia a:
+  * $N=13$ ($6.2 \times 10^9$ permutaciones): Costo = **670.0** (Gap = **+2.76%** frente a Simulated Annealing 652.0).
+  * $N=14$ (**87 mil millones de permutaciones**, $8.7 \times 10^{10}$): Costo = **800.0** (Gap = **+0.25%** frente a Simulated Annealing 798.0).
 
 ---
 
@@ -67,12 +95,16 @@ uv venv .venv --python 3.11
 uv pip install -r requirements.txt
 ```
 
-### 2. Iniciar el Cockpit Oficial Primario (Flask Micro-API en Puerto 5000)
+### 2. Comando Oficial en 1 Sola Línea para el Jurado
+Para reproducir la telemetría oficial completa y la verificación de ground truths en consola:
 ```powershell
-python src/backend.py
+python run_demo.py
 ```
-*Servidor activo en `http://localhost:5000` con latencia `< 50 ms`.*  
-Abre en tu navegador: 👉 **`http://localhost:5000`** *(o doble clic directo en `ui/index.html` gracias al Fail-Safe embebido).*
+O para lanzar en 1 clic el **Cockpit Oficial Ejecutivo** con interfaz interactiva en el navegador:
+```powershell
+.\run_cockpit.bat
+```
+*(Inicia la Micro-API Flask en `http://localhost:5000` con latencia < 50 ms y abre el navegador automáticamente).*
 
 ### 3. Explorador Interactivo Auxiliar (Streamlit en Puerto 8502)
 Para jurados o evaluadores que prefieran interfaz Streamlit interactiva:
@@ -80,11 +112,6 @@ Para jurados o evaluadores que prefieran interfaz Streamlit interactiva:
 streamlit run app.py --server.port 8502
 ```
 *Disponible en: `http://localhost:8502`*
-
-### 4. Comando de Demostración en 1 Línea para Consola
-```powershell
-python run_demo.py
-```
 
 ---
 
