@@ -132,7 +132,7 @@ $$\Delta C = 466.0 \text{ (Greedy)} \longrightarrow 350.0 \text{ (NODUX Q-LNS)} 
 ## 6. INTEGRACIÓN CON IBM QUANTUM CLOUD & QPU TRANSPILED ARCHITECTURE
 
 ### 6.1. ¿Por qué se integró la API y qué función cumple?
-El equipo integró las credenciales institucionales de **IBM Quantum Platform** (`token: RB3fiRWD9X6g4GTgbB8m6fpU3YNU21n0OzFb7P9YUTW6`, canal `ibm_quantum_platform`) mediante el SDK oficial **`qiskit-ibm-runtime` (v0.51.0)**.
+El equipo integró las credenciales institucionales de **IBM Quantum Platform** (gestionadas de forma segura vía variables de entorno `.env` con `IBM_QUANTUM_TOKEN`, canal `ibm_quantum_platform`) mediante el SDK oficial **`qiskit-ibm-runtime` (v0.51.0)**.
 
 Cumple **dos funciones críticas** dentro de la plataforma:
 1. **Validación Institucional y Telemetría en Tiempo Real:** Demuestra al jurado que el sistema se conecta activamente a la nube cuántica de IBM y monitorea el estado operacional y la cola de espera (*queue*) de procesadores reales.

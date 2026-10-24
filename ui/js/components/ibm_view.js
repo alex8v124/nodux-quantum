@@ -86,7 +86,7 @@ window.IbmView = {
               <div style="margin-bottom: 10px;">
                 <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 4px;">API Token Oficial (Validado)</label>
                 <div style="display: flex; gap: 8px;">
-                  <input type="password" id="ibmTokenInput" value="RB3fiRWD9X6g4GTgbB8m6fpU3YNU21n0OzFb7P9YUTW6" class="select-input" placeholder="Token institucional..." style="flex: 1; font-family: monospace; font-size: 11px;" />
+                  <input type="password" id="ibmTokenInput" value="" class="select-input" placeholder="Token institucional (preconfigurado en .env)..." style="flex: 1; font-family: monospace; font-size: 11px;" />
                   <button id="btnConnectIbm" class="btn btn-primary" style="white-space: nowrap; height: 32px; font-size: 11px;">Reconectar</button>
                 </div>
               </div>

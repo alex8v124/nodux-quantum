@@ -22,8 +22,6 @@ except ImportError:
 
 
 class IBMQuantumService:
-    DEFAULT_TOKEN = "RB3fiRWD9X6g4GTgbB8m6fpU3YNU21n0OzFb7P9YUTW6"
-
     def __init__(self, token: Optional[str] = None, channel: str = "ibm_quantum_platform", instance: Optional[str] = None):
         self.token = token or os.getenv("IBM_QUANTUM_TOKEN")
         self.channel = os.getenv("IBM_QUANTUM_CHANNEL") or channel
@@ -44,13 +42,10 @@ class IBMQuantumService:
                         elif line.startswith("IBM_QUANTUM_INSTANCE="):
                             self.instance = line.split("=", 1)[1].strip()
 
-        if not self.token:
-            self.token = self.DEFAULT_TOKEN
-
         if self.token and HAS_RUNTIME:
             self.connect(self.token, self.channel, self.instance)
 
-    def connect(self, token: str, channel: str = "ibm_quantum_platform", instance: Optional[str] = None) -> Dict[str, Any]:
+    def connect(self, token: Optional[str] = None, channel: Optional[str] = None, instance: Optional[str] = None) -> Dict[str, Any]:
         """Verifica y autentica credenciales con el servicio de IBM."""
         if not HAS_RUNTIME:
             return {
@@ -58,9 +53,18 @@ class IBMQuantumService:
                 "error": "Librería qiskit-ibm-runtime no instalada en el entorno."
             }
 
-        self.token = token.strip()
-        self.channel = channel
-        self.instance = instance
+        if token and token.strip():
+            self.token = token.strip()
+        if channel:
+            self.channel = channel
+        if instance:
+            self.instance = instance
+
+        if not self.token:
+            return {
+                "success": False,
+                "error": "No se proporcionó ningún token de autenticación de IBM Quantum."
+            }
 
         try:
             # Intentar conexión con canal indicado
