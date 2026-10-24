@@ -16,7 +16,8 @@ from flask_cors import CORS
 # Path configuration with normalized absolute paths for resilient cloud & local execution
 SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SRC_DIR, ".."))
-UI_DIR = os.path.join(ROOT_DIR, "ui")
+PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
+UI_DIR = PUBLIC_DIR if os.path.exists(PUBLIC_DIR) else os.path.join(ROOT_DIR, "ui")
 ASSETS_DIR = os.path.join(ROOT_DIR, "assets")
 DATA_PATH = os.path.join(ROOT_DIR, "data", "matrices_F_D.json")
 

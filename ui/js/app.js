@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const elStatusDot = document.getElementById("statusDot");
   const elStatusText = document.getElementById("statusText");
   const elBackendLatency = document.getElementById("backendLatency");
+  const elBackendHost = document.getElementById("backendHost");
+  if (elBackendHost) {
+    elBackendHost.innerText = window.location.host;
+  }
   const elBtnOptimize = document.getElementById("btnOptimize");
   const elSliderLambda = document.getElementById("sliderLambda");
   const elValLambda = document.getElementById("valLambda");

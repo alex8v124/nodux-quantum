@@ -95,23 +95,39 @@ uv venv .venv --python 3.11
 uv pip install -r requirements.txt
 ```
 
-### 2. Comando Oficial en 1 Sola Línea para el Jurado
-Para reproducir la telemetría oficial completa y la verificación de ground truths en consola:
+### 2. Comandos de Ejecución — Jerarquía Oficial
+
+#### ▶ Opción 1 (Recomendada para el Jurado): Cockpit Web Interactivo
+Lanza la Micro-API Flask y sirve la interfaz ejecutiva HTML5/Vanilla JS:
 ```powershell
-python run_demo.py
+python src/backend.py
 ```
-O para lanzar en 1 clic el **Cockpit Oficial Ejecutivo** con interfaz interactiva en el navegador:
+Abrir en el navegador: **`http://127.0.0.1:5000`**
+*(Latencia < 50 ms. Fail-Safe Plan B embebido en JS si el kernel cae.)*
+
+En Windows se puede usar el lanzador en un solo clic:
 ```powershell
 .\run_cockpit.bat
 ```
-*(Inicia la Micro-API Flask en `http://localhost:5000` con latencia < 50 ms y abre el navegador automáticamente).*
 
-### 3. Explorador Interactivo Auxiliar (Streamlit en Puerto 8502)
-Para jurados o evaluadores que prefieran interfaz Streamlit interactiva:
+#### ▶ Opción 2: Demo de Consola (sin servidor, reproducción offline)
+Ejecuta las 4 fases completas en terminal y verifica los ground truths N=3, N=4 y N=10:
+```powershell
+python run_demo.py
+```
+
+#### ▶ Opción 3: Suite de Telemetría Oficial (benchmark completo)
+Genera la tabla CSV y las gráficas PNG de comparativa Alexander vs Wali:
+```powershell
+python benchmark.py
+```
+
+#### ▶ Opción 4: Explorador Auxiliar Streamlit (puerto 8502)
+Interfaz alternativa con sliders, heatmaps y métricas en tiempo real:
 ```powershell
 streamlit run app.py --server.port 8502
 ```
-*Disponible en: `http://localhost:8502`*
+*Disponible en: `http://127.0.0.1:8502`*
 
 ---
 

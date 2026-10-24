@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NODUX • Enterprise Quantum Decision Platform (QAP10)</title>
+  
+  <!-- Enterprise Design System Stylesheets -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+
+  <!-- 1. Enterprise App Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14M16.24 7.76a6 6 0 0 1 0 8.48M7.76 16.24a6 6 0 0 1 0-8.48"></path>
+        </svg>
+        <span>NODUX</span>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-context">
+        Enterprise Quantum Decision Platform · MIPLIB qap10 Solver
+      </div>
+    </div>
+
+    <div class="header-status-group">
+      <div class="status-indicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Conectando...</span>
+      </div>
+      <div class="status-indicator">
+        <span>Qiskit 2.6.1 Aer</span>
+      </div>
+      <div class="status-indicator" style="color: #78a9ff;">
+        <span>Reto NTT DATA · Qiskit Fall Fest Lima 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Main Shell -->
+  <div class="app-shell">
+    
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar">
+      
+      <!-- Section 1: Problem Scale -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>Dimensión de la Instancia (N)</span>
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">MIPLIB QAP10</span>
+        </div>
+        
+        <div class="segmented-control" style="margin-bottom: 8px;">
+          <button class="segment-btn btn-scale" data-scale="3">N = 3 (9q)</button>
+          <button class="segment-btn btn-scale" data-scale="4">N = 4 (16q)</button>
+          <button class="segment-btn btn-scale active" data-scale="10">N = 10 (100q)</button>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
+          Instancia activa: <b>qap10</b> recortada a submatriz de dimensión N.
+        </div>
+      </div>
+
+      <!-- Section 2: Engine Selector -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>Motor de Resolución</span>
+        </div>
+
+        <div class="segmented-control" style="margin-bottom: 8px;">
+          <button class="segment-btn btn-engine active" data-engine="qaoa">Qiskit Aer / Q-LNS</button>
+          <button class="segment-btn btn-engine" data-engine="classical">Línea Base Clásica</button>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
+          Para N=10 se ejecuta el algoritmo cuántico híbrido <b>Q-LNS</b> acotado a sub-circuitos de 9 cúbits.
+        </div>
+      </div>
+
+      <!-- Section 3: Quantum Hyperparameters -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>Hiperparámetros Cuánticos</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span>Multiplicador Lagrange (λ)</span>
+            <span class="label-hint" id="valLambda">60</span>
+          </label>
+          <input type="range" class="range-slider" id="sliderLambda" min="10" max="120" step="5" value="60">
+        </div>
+
+        <!-- Alert for low lambda -->
+        <div id="lambdaAlert" class="alert-box alert-danger" style="display: none;"></div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span>Muestreo de Simulador (Shots)</span>
+          </label>
+          <select class="select-input" id="selectShots">
+            <option value="1024" selected>1,024 disparos (Rápido)</option>
+            <option value="2048">2,048 disparos (Precisión)</option>
+            <option value="4096">4,096 disparos (Espectro Completo)</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">
+            <span>Capas QAOA (p)</span>
+            <span class="label-hint">p = 1</span>
+          </label>
+          <select class="select-input" disabled>
+            <option value="1" selected>p = 1 (Ansatz Alternante)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section 4: Action -->
+      <div class="sidebar-section" style="border-bottom: none; margin-top: auto;">
+        <button class="btn btn-primary btn-block" id="btnOptimize">
+          Ejecutar Optimización
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- Workspace -->
+    <main class="workspace">
+      
+      <!-- Top Navigation Tabs -->
+      <nav class="workspace-nav">
+        <button class="nav-tab active" data-tab="warehouse">
+          <span>Asignación de Planta & Bahías</span>
+        </button>
+        <button class="nav-tab" data-tab="telemetry">
+          <span>Benchmarking Clásico vs Cuántico</span>
+        </button>
+        <button class="nav-tab" data-tab="roi">
+          <span>Modelo de Negocio & ROI (+10 Pts)</span>
+        </button>
+        <button class="nav-tab" data-tab="circuit">
+          <span>Diagnóstico de Circuito & Ising</span>
+        </button>
+      </nav>
+
+      <!-- KPI Summary Bar -->
+      <section class="kpi-summary-bar">
+        <div class="kpi-tile">
+          <span class="kpi-label">Costo Factible C(x)</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiCost">--</span>
+            <span class="kpi-target" id="kpiTarget">Control: --</span>
+          </div>
+        </div>
+
+        <div class="kpi-tile">
+          <span class="kpi-label">Brecha Relativa (Gap %)</span>
+          <div class="kpi-value-row">
+            <span class="kpi-badge badge-success" id="kpiGap">--%</span>
+          </div>
+        </div>
+
+        <div class="kpi-tile">
+          <span class="kpi-label">Factibilidad Biunívoca</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiFeas" style="color: var(--color-success);">--%</span>
+            <span class="kpi-target">Filtro Húngaro</span>
+          </div>
+        </div>
+
+        <div class="kpi-tile">
+          <span class="kpi-label">Tiempo de Cómputo</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiTime">-- ms</span>
+          </div>
+        </div>
+
+        <div class="kpi-tile">
+          <span class="kpi-label">Motor Activo</span>
+          <div class="kpi-value-row">
+            <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);" id="kpiEngine">
+              Qiskit AerSimulator
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dynamic Canvas View -->
+      <section class="workspace-canvas" id="workspaceContent">
+        <!-- Rendered by JavaScript components -->
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- 3. App Status Bar (Footer) -->
+  <footer class="app-status-bar">
+    <div class="status-left">
+      <div class="status-item">
+        <span style="color: var(--text-muted);">HOST:</span>
+        <span id="backendHost">127.0.0.1:5000</span>
+      </div>
+      <div class="status-item">
+        <span style="color: var(--text-muted);">LATENCIA API:</span>
+        <span id="backendLatency">-- ms</span>
+      </div>
+      <div class="status-item">
+        <span style="color: var(--text-muted);">MEMORIA CUÁNTICA:</span>
+        <span style="color: var(--color-success); font-weight: 600;">8.0 KiB (Acotada)</span>
+      </div>
+    </div>
+
+    <div class="status-right">
+      <div class="status-item">
+        <span style="color: var(--text-muted);">MIPLIB INSTANCE:</span>
+        <span>qap10.mps.gz (4,050 variables cuadráticas)</span>
+      </div>
+      <div class="status-item">
+        <span style="color: var(--text-muted);">EQUIPO:</span>
+        <span>Nodux Core Team</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic Modules -->
+  <script src="/js/api.js"></script>
+  <script src="/js/state.js"></script>
+  <script src="/js/components/warehouse_view.js"></script>
+  <script src="/js/components/telemetry_view.js"></script>
+  <script src="/js/components/roi_view.js"></script>
+  <script src="/js/components/circuit_view.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>

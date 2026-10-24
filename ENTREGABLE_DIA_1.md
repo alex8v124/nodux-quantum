@@ -33,7 +33,7 @@ $$\min_x C(x) = \sum_{i < k} \sum_{j \neq l} F_{ik} D_{jl} x_{ij} x_{kl} \quad \
 El espacio de búsqueda abarca $10! = 3,628,800$ permutaciones posibles con un óptimo de referencia conocido de $C^* = 340$. La formulación QUBO directa exige 100 cúbits binarios ($2^{100} \approx 1.26 \times 10^{30}$ estados amplitudes $\times 16$ bytes $\approx 2 \times 10^{31}$ bytes, equivalente a **20 millones de Yottabytes**), cuya simulación por vector de estado es físicamente imposible en computación clásica e inviable en procesadores NISQ debido a ruido y decoherencia.
 
 #### B. Propuesta de Solución Técnica (Nodux Pipeline)
-1. **Extracción y Validación de Datos (Walter Carpio):** A partir del archivo `qap10.mps.gz`, decodificamos las **4,150 variables binarias totales**: 100 variables de asignación $X_{ij}$ y las **4,050 variables linealizadas $Y_{ijkl} = X_{ij}X_{kl}$** con coeficiente en `NOBJ`, recuperando las matrices canónicas $F$ y $D$ con **100% de coincidencia exacta** en todos los términos. Verificamos los óptimos de control oficiales:
+1. **Extracción y Validación de Datos (Walter Carpio):** A partir del archivo `qap10.mps.gz`, decodificamos las **4,150 variables totales del modelo linealizado**: 100 variables binarias de asignación $X_{ij}$ y las **4,050 variables auxiliares de linealización $Y_{ijkl} = X_{ij}X_{kl}$** con coeficiente en `NOBJ`, recuperando las matrices canónicas $F$ y $D$ con **100% de coincidencia exacta** en todos los términos. Verificamos los óptimos de control oficiales:
    - Subinstancia $N=3$: $C^* = 24.0$ (Exacto)
    - Subinstancia $N=4$: $C^* = 32.0$ (Exacto)
    - Instancia Completa $N=10$: $C^* = 340.0$ (Ground truth MIPLIB)

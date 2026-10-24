@@ -1,0 +1,69 @@
+/* 
+  NODUX Enterprise Design System — Tokens
+  Inspirado en IBM Carbon / Blueprint.js / Plataformas de Ingeniería Operativa.
+  Sobrio, funcional, sin gradientes decorativos ni saturación artificial.
+*/
+
+:root {
+  /* Escala de Grises / Superficies */
+  --bg-app: #f4f5f7;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f8f9fa;
+  --bg-muted: #e9ecef;
+  --border-color: #d1d5db;
+  --border-subtle: #e5e7eb;
+  --border-strong: #9ca3af;
+
+  /* Tipografía */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-on-primary: #ffffff;
+
+  /* Acentos Funcionales (Enterprise Palette) */
+  --color-primary: #0f62fe;          /* IBM Tech Blue */
+  --color-primary-hover: #0353e9;
+  --color-primary-active: #002d9c;
+  --color-primary-subtle: #edf5ff;
+
+  --color-success: #198038;          /* Forest Green */
+  --color-success-bg: #defbe6;
+  --color-success-border: #a7f0ba;
+
+  --color-warning: #b28600;          /* Warning Amber */
+  --color-warning-bg: #fdf6dd;
+  --color-warning-border: #f1c21b;
+
+  --color-danger: #da1e28;           /* Crimson Red */
+  --color-danger-bg: #fff1f1;
+  --color-danger-border: #ffd7d9;
+
+  --color-info: #0043ce;
+  --color-info-bg: #edf5ff;
+
+  /* Espaciado Modular */
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+
+  /* Radios de Borde (Sutiles y funcionales, no redondeo excesivo de juguete) */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-none: 0px;
+
+  /* Sombras Técnicas (Mínimas y precisas) */
+  --shadow-none: none;
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Transiciones */
+  --transition-fast: 120ms ease-in-out;
+}
