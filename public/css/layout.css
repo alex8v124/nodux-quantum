@@ -447,23 +447,34 @@ body {
 
 /* Workspace Scrollable Canvas */
 .workspace-canvas {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
   padding: var(--spacing-md);
   overflow-y: auto;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+  display: block; /* CRITICAL: Block layout allows natural document flow, prevents flex shrinkage and clipping */
   -webkit-overflow-scrolling: touch;
+}
+
+.workspace-canvas > * {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: var(--spacing-md);
+}
+
+.workspace-canvas > *:last-child {
+  margin-bottom: var(--spacing-xl);
 }
 
 @media (max-width: 768px) {
   .workspace-canvas {
     padding: 8px;
-    gap: 8px;
+  }
+  .workspace-canvas > * {
+    margin-bottom: 8px;
   }
 }
 

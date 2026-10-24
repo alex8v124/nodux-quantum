@@ -208,8 +208,8 @@ window.ManagerDashboard = {
       </div>
 
       <!-- BARRA DE FILTROS GERENCIALES -->
-      <div class="panel" style="margin-bottom: var(--spacing-lg);">
-        <div style="padding: 10px 16px; background-color: var(--bg-subtle); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+      <div class="panel" style="margin-bottom: var(--spacing-md);">
+        <div class="dashboard-filter-bar">
           <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
             <!-- Selector de Periodo -->
             <div style="display: flex; align-items: center; gap: 6px;">
