@@ -31,6 +31,23 @@ from business_roi import WarehousePickingImpactModel
 app = Flask(__name__, static_folder=UI_DIR)
 CORS(app)
 
+from urllib.parse import parse_qs
+
+class VercelPathMiddleware:
+    """Restaura la ruta original solicitada en entornos Serverless como Vercel."""
+    def __init__(self, wsgi):
+        self.wsgi = wsgi
+    def __call__(self, env, start):
+        params = parse_qs(env.get("QUERY_STRING", ""))
+        if "__route__" in params:
+            route = params["__route__"][0].lstrip("/")
+            env["PATH_INFO"] = f"/api/{route}"
+        elif "HTTP_X_MATCHED_PATH" in env and env["HTTP_X_MATCHED_PATH"].startswith("/api/"):
+            env["PATH_INFO"] = env["HTTP_X_MATCHED_PATH"]
+        return self.wsgi(env, start)
+
+app.wsgi_app = VercelPathMiddleware(app.wsgi_app)
+
 PRODUCT_FAMILIES = [
     "Familia Pernos y Tuercas Hexagonales",
     "Familia Herramientas Eléctricas y Taladros",
