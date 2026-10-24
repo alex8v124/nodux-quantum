@@ -1007,7 +1007,7 @@ window.ManagerDashboard = {
                 <li><b>Arquitectura Híbrida Pragmática:</b> Q-LNS reduce el espacio combinatorio de 100 cúbits a sub-problemas de 9 cúbits (8.0 KiB RAM), haciéndolo perfectamente ejecutable en simuladores y QPUs NISQ.</li>
                 <li><b>Rendimiento Probado:</b> Converge a costo factible de 350.0 pts (gap de 2.94% frente a la cota óptima MIPLIB de 340.0 pts).</li>
                 <li><b>Garantía de Factibilidad:</b> El Algoritmo Húngaro asegura 100% de cumplimiento biunívoco (cero bahías vacías ni solapamientos).</li>
-                <li><b>Hardware Real IBM:</b> Circuito compilado y validado en la nube cuántica de IBM (`ibm_fez` Heron 156q con compuertas nativas CZ).</li>
+                <li><b>Hardware Real IBM:</b> Circuito compilado y validado en la nube cuántica de IBM (<code>ibm_fez</code> Heron 156q con compuertas nativas CZ).</li>
                 <li><b>Impacto Financiero:</b> S/ 280,000 / año de beneficio neto auditable y 4.2 km de caminata evitada diaria por operario.</li>
               </ul>
             </div>

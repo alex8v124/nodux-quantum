@@ -86,25 +86,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function renderActiveTab(state) {
     if (!elWorkspaceContent) return;
-    switch (state.activeTab) {
-      case "dashboard":
-        window.ManagerDashboard.render(elWorkspaceContent, state);
-        break;
-      case "warehouse":
-        window.WarehouseView.render(elWorkspaceContent, state);
-        break;
-      case "telemetry":
-        window.TelemetryView.render(elWorkspaceContent, state);
-        break;
-      case "roi":
-        window.RoiView.render(elWorkspaceContent, state);
-        break;
-      case "circuit":
-        window.CircuitView.render(elWorkspaceContent, state);
-        break;
-      case "ibm":
-        window.IbmView.render(elWorkspaceContent, state);
-        break;
+    try {
+      switch (state.activeTab) {
+        case "dashboard":
+          if (window.ManagerDashboard && typeof window.ManagerDashboard.render === "function") {
+            window.ManagerDashboard.render(elWorkspaceContent, state);
+          }
+          break;
+        case "warehouse":
+          if (window.WarehouseView && typeof window.WarehouseView.render === "function") {
+            window.WarehouseView.render(elWorkspaceContent, state);
+          }
+          break;
+        case "telemetry":
+          if (window.TelemetryView && typeof window.TelemetryView.render === "function") {
+            window.TelemetryView.render(elWorkspaceContent, state);
+          }
+          break;
+        case "roi":
+          if (window.RoiView && typeof window.RoiView.render === "function") {
+            window.RoiView.render(elWorkspaceContent, state);
+          }
+          break;
+        case "circuit":
+          if (window.CircuitView && typeof window.CircuitView.render === "function") {
+            window.CircuitView.render(elWorkspaceContent, state);
+          }
+          break;
+        case "ibm":
+          if (window.IbmView && typeof window.IbmView.render === "function") {
+            window.IbmView.render(elWorkspaceContent, state);
+          }
+          break;
+      }
+    } catch (err) {
+      console.error(`Error al renderizar vista '${state.activeTab}':`, err);
     }
   }
 

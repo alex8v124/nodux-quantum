@@ -10,7 +10,7 @@ class AppStore {
       lambdaPenalty: 60.0,
       shots: 1024,
       algorithm: "qaoa", // 'qaoa' | 'classical'
-      activeTab: "warehouse", // 'warehouse' | 'telemetry' | 'roi' | 'circuit' | 'ibm'
+      activeTab: "dashboard", // 'dashboard' | 'warehouse' | 'telemetry' | 'roi' | 'circuit' | 'ibm'
       isLoading: false,
       backendStatus: "checking", // 'online' | 'offline' | 'checking'
       lastLatencyMs: null,
