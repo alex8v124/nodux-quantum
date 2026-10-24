@@ -1,0 +1,125 @@
+=== PAGE 1 ===
+NODUX • MANUAL TÉCNICO DE OPERACIONES (SOP)
+Plan de Ejecución Quirúrgica para Alexander (CTO & Lead Qiskit)
+RETO: NTT DATA (QAP10)
+OBJETIVO: 110 PUNTOS
+DIRECTRIZ DE COMBATE: PRAGMÁTICO, CERO SOBREINGENIERÍA
+ENFOQUE CRÍTICO
+Misión de Alexis: Implementar un pipeline reproducible en Qiskit para resolver la asignación cuadrática QAP10 en subinstancias de
+control (N=3 y N=4), comparar contra el solver clásico de Wali y conectar los resultados a una terminal visual interactiva antes de las
+2:30 p. m. No se evalúa el tamaño de un circuito inmanejable; se evalúa rigor matemático, factibilidad de asignaciones y justificación
+del método.
+FASE 1: SETUP LOCAL Y AISLAMIENTO DE ENTORNO (10:35 A. M. – 11:00 A. M.)
+30 PTS REPRODUCIBILIDAD
+Garantizar independencia del Wi-Fi de OPEN PUCP. Todo debe compilarse en local con semillas fijas:
+       # 1. Crear entorno limpio e instalar librerías base probadas python -m venv venv && source 
+venv/bin/activate # En Windows: venv\Scripts\activate pip install qiskit qiskit-aer qiskit-algorithms 
+qiskit-optimization docplex numpy pandas matplotlib pip freeze > requirements.txt # 2. Inicializar 
+repositorio Git estructurado git init && git checkout -b main
+      
+• Estructura del repo: src/qubo_builder.py, src/qiskit_solver.py, src/classical_baseline.py, app.py y benchmark.py.
+FASE 2: FORMULACIÓN QUBO Y CONVERGENCIA N=3 / N=4 (11:00 A. M. – 12:30 P. M.)
+1. Convención Estricta del Costo (i < k)
+La función de costo oficial cuenta cada par una sola vez:
+C(x) = ∑i<k ∑j≠l Fik · Djl · xij · xkl
+Alerta crítica: Si sumas en doble sentido (i ≠ k), el costo se duplica y
+arroja 48 y 64 en lugar de los óptimos de control.
+2. Hamiltoniano de Penalización (λ)
+Inyectar restricciones biunívocas como penalizaciones:
+H(x) = C(x) + λ ∑i (∑j xij − 1)2 + λ ∑j (∑i xij − 1)2
+• Probar valores de λ (ej. λ = 10, 50, 100). Registrar la tasa de
+asignaciones válidas obtenidas.
+       # Snippet de arquitectura: src/qiskit_solver.py from qiskit_algorithms import QAOA, 
+NumPyMinimumEigensolver from qiskit_algorithms.optimizers import COBYLA from qiskit_aer.primitives import 
+Sampler # Exacto (Ground Truth): exact_solver = NumPyMinimumEigensolver() exact_res = 
+exact_solver.compute_minimum_eigenvalue(qubo_operator) # Heurístico Cuántico (QAOA): qaoa = 
+QAOA(sampler=Sampler(run_options={"shots": 2048, "seed": 42}), optimizer=COBYLA(maxiter=150)) qaoa_res = 
+qaoa.compute_minimum_eigenvalue(qubo_operator)
+      
+TABLA OFICIAL DE VERIFICACIÓN DE INSTANCIAS (DOCUMENTO NTT DATA)
+Escala
+(N)
+Variables
+QUBO
+Espacio de
+Búsqueda
+Óptimo de
+Referencia
+Memoria Statevector
+Estrategia de Alexis
+N = 3
+9 cúbits
+3! = 6 factibles
+C* = 24
+8 KiB (Instantáneo)
+Validar convergencia matemática exacta al
+100%.
+N = 4
+16 cúbits
+4! = 24 factibles
+C* = 32
+1 MiB (Simulador Aer)
+Probar QAOA p=1 y p=2; documentar
+factibilidad.
+N = 10
+100 cúbits
+10! = 3,628,800
+C* = 340
+2100 amplitudes
+(Imposible)
+Descomposición: fijar 6 variables clásicas
++ sub-QUBO.
+NODUX • SOP Alexander (CTO)
+Fases 1 y 2: Entorno y Solver Cuántico • Página 1 de 2
+
+
+=== PAGE 2 ===
+NODUX • TELEMETRÍA, FRONTEND Y ENTREGA
+Benchmark Clásico vs. Cuántico, Cockpit Interactivo y Cierre de Mesa
+FASE DE INTEGRACIÓN Y FREEZE
+FASE 3: TELEMETRÍA Y CRUCE CON WALI (12:30 P. M. – 1:30 P. M.)
+20 PTS RÚBRICA
+Conectar el script con el solver exacto clásico que Wali corre en Python (evaluando todas las permutaciones). Generar automáticamente
+la tabla de telemetría para el pitch:
+       # Métrica Oficial de NTT DATA: gap_porcentaje = 100 * (costo_factible_obtenido - optimo_control) / 
+optimo_control tasa_factibilidad = (muestras_validas / total_shots) * 100 # Justificación NISQ: El QUBO 
+evalúa 2^N^2 estados; el filtro clásico repara asignaciones no biunívocas.
+      
+• Defensa técnica ante el jurado: Diferenciar con rigor la energía total penalizada del Hamiltoniano frente al costo real C(x) de la asignación
+factible.
+FASE 4: MONTAJE DEL COCKPIT INTERACTIVO (1:30 P. M. – 2:30 P. M.)
+EL FACTOR GANADOR
+Los jurados de NTT DATA se aburren con terminales crudas de Jupyter. Alexander despliega una interfaz local (o script web con
+FastAPI/Flask) que traduce las cadenas de bits a la operativa real de almacén Nodux:
+Lo que ve el jurado en la pantalla:
+Slider dinámico de penalizador λ (muestra cómo colapsa la
+solución si λ es bajo).
+Matriz de Asignación Final en tarjetas verdes legibles (ej.
+«Familia Clavos → Bahía 2»).
+Velocímetro dual: Latencia Clásica vs. Convergencia Cuántica
+Qiskit Aer.
+Blindaje ante caídas (Plan B):
+Tener la lógica de cálculo pre-renderizada en JavaScript
+embebido en caso de fallo del kernel.
+Capturas de convergencia y gráficos de barras guardados
+como imágenes estáticas en assets/.
+FASE 5: CONGELAMIENTO DE CÓDIGO Y GITHUB (2:30 P. M. – 3:00 P. M.)
+FEATURE FREEZE
+A las 2:30 p. m. no se toca una sola línea más de lógica algorítmica. Entregables directos de Alexis:
+1. Push final a GitHub: Repositorio público con README.md impecable, comando de ejecución en 1 línea (python run_demo.py), tablas
+de resultados y semillas declaradas.
+2. Grabación de Respaldo (Loom / OBS - 60 seg): Video corto en MP4 mostrando la corrida limpia del script arrojando el óptimo 24 y 32.
+Si la laptop falla ante los jueces, este video valida la solución.
+3. Sincronización con Nico: Entregar a Nico las capturas numéricas exactas para pegarlas en la PPT oficial.
+CHECKLIST DE SUPERVIVENCIA: 3:00 P. M. EN PUNTO (FILTRO ELIMINATORIO)
+PRESENCIA OBLIGATORIA
+[ ] Entorno local probado offline (cero dependencia de Wi-Fi).
+[ ] Óptimos de control verificados: N=3 (C*=24) y N=4 (C*=32).
+[ ] README en GitHub con instrucciones reproducibles y semillas.
+[ ] Video demo de 60s renderizado y accesible en web.
+[ ] UI interactiva abierta a pantalla completa (F11).
+[ ] Los 4 integrantes en la mesa asignada en OPEN PUCP.
+NODUX • SOP Alexander (CTO)
+Fases 3 a 5: Integración, Cockpit y Cierre • Página 2 de 2
+
+
