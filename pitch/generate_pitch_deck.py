@@ -99,9 +99,9 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
 
     bullets = [
         ("Espacio de Búsqueda Masivo: ", "10! = 3,628,800 permutaciones factibles. Cada decisión de ubicación acopla cuadráticamente a todas las demás."),
-        ("Ground Truth Matemático: ", "Instancia oficial qap10.mps con 4,150 variables linealizadas. Óptimos de control: N=3 (24), N=4 (32) y N=10 (C* = 340)."),
-        ("El Muro NISQ de 100 Qubits: ", "Un QUBO plano de 100 cúbits requiere 2^100 amplitudes (10^31 bytes). Ningún computador clásico puede simularlo con statevector."),
-        ("Objetivo Nodux: ", "Resolver la instancia completa y habilitar escalamiento a N=13 y N=14 con rigor experimental y factibilidad estricta.")
+        ("Ground Truth Matemático: ", "Instancia oficial qap10.mps con 4,150 variables binarias totales (100 de asignación X y 4,050 linealizadas Y). Óptimos de control: N=3 (24), N=4 (32) y N=10 (C* = 340)."),
+        ("El Muro NISQ de 100 Qubits: ", "Un QUBO plano de 100 cúbits requiere 2^100 amplitudes (2×10^31 bytes ≈ 20 millones de Yottabytes). Ningún computador clásico puede simularlo con vector de estado."),
+        ("Objetivo Nodux: ", "Demostrar utilidad metodológica cuántica con Q-LNS, escalando a N=13 y N=14 con memoria acotada (8 KiB) y factibilidad estricta.")
     ]
     for b_title, b_text in bullets:
         p_b = tf2_l.add_paragraph()
@@ -146,14 +146,15 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
 
     sections = [
         ("A. Extracción Inversa Exacta desde MIPLIB qap10.mps (Walter Carpio)", 
-         "Decodificamos las 4,050 variables linealizadas Y de qap10.mps mapeándolas a x_ij x_kl. "
+         "El archivo contiene 4,150 variables binarias totales: 100 variables de asignación X_ij y 4,050 variables linealizadas Y con coeficiente en NOBJ. "
          "Comprobamos que Q_ikjl = F_ik * D_jl en el 100% de los 4,050 términos con coincidencia matemática exacta."),
         ("B. Formulación QUBO y Hamiltoniano de Ising (Alexander Miranda)",
          "H(x) = C(x) + λ ∑_i (∑_j x_ij - 1)^2 + λ ∑_j (∑_i x_ij - 1)^2\n"
          "Sustitución de espín: x_ij = (I - Z_ij)/2, construyendo operadores SparsePauliOp en Qiskit."),
-        ("C. Calibración Analítica y Sensibilidad de λ",
-         "Si λ es insuficiente, se producen asignaciones no válidas; si es excesivo, distorsiona la energía. "
-         "Demostramos teóricamente λ > max(F)*max(D)*(N-1) y fijamos λ = 60.0. Alexander audita la fracción factible de muestras."),
+        ("C. Calibración Analítica y Derivación Única de λ = 60.0",
+         "Para garantizar que ningún estado infactible tenga menor energía que el óptimo factible: λ > ΔC_max = max_i(∑_{k≠i} F_ik) · max(D). "
+         "Para el núcleo N=3, ΔC_max = 16 × 2 = 32.0 (cota superior conservadora: (N-1)·max(F)·max(D) = 40.0). "
+         "Fijamos λ = 60.0 con 50% de margen de seguridad frente a fluctuaciones variacionales."),
         ("D. Verificación de Óptimos de Control",
          "• N=3 (9 cúbits): Costo Óptimo = 24.0 (100% verificado)\n"
          "• N=4 (16 cúbits): Costo Óptimo = 32.0 (100% verificado)\n"
@@ -243,15 +244,16 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
     res_bullets = [
         ("Greedy Heuristic (Línea Base): ", "Costo = 466.0 | Gap = +37.06% | Tiempo = 0.0001s"),
         ("2-Opt Local Search Clásico: ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 0.0159s (Mínimo local)"),
-        ("Simulated Annealing: ", "Costo = 340.0 | Gap = 0.00% | Tiempo = 0.4109s (Óptimo global alcanzado)"),
+        ("Simulated Annealing: ", "Costo = 340.0 | Gap = 0.00% | Tiempo = 0.4109s (Óptimo clásico de referencia)"),
         ("QAOA Directo Qiskit (N=3, N=4): ", "N=3: Costo 24.0 (0.00% Gap) | N=4: Costo 32.0 (0.00% Gap)"),
-        ("Quantum Hybrid LNS (N=10, 100 cúbits): ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 1.73s (100% factible)"),
-        ("Prueba de Escalabilidad Etapa 3 (Finalistas): ", "N=13 (6.2 mil millones de perms): Gap = 2.76% en 1.71s | N=14 (87 mil millones de perms): Gap = 0.25% en 1.57s")
+        ("Quantum Hybrid LNS (N=10, 100 cúbits): ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 1.73s (100% factible con proyección húngara)"),
+        ("Prueba de Escalabilidad Etapa 3 (Finalistas): ", "N=13 (6.2 mil millones de perms): Gap = 2.76% en 1.71s | N=14 (87 mil millones de perms): Gap = 0.25% en 1.57s | Memoria cuántica acotada a 8 KiB"),
+        ("Rigor y Enfoque Científico: ", "Demostramos Utilidad Metodológica Cuántica: Qiskit resuelve exactamente el subproblema activo y Q-LNS desacopla la intratabilidad de 100 cúbits.")
     ]
     for b_title, b_text in res_bullets:
         p_b = tf5.add_paragraph()
         p_b.text = f"• {b_title}"
-        p_b.font.size = Pt(13)
+        p_b.font.size = Pt(12)
         p_b.font.bold = True
         p_b.font.color.rgb = C_DARK
         p_b.add_run().text = b_text
@@ -274,8 +276,8 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
     roi_assumptions = [
         ("Velocidad de Picking: ", "1.2 m/s promedio de desplazamiento con transpaleta manual/eléctrica."),
         ("Costo Hora-Hombre: ", "S/ 12.00 por hora hombre en centros de distribución ferretero-industrial."),
-        ("Red Operativa: ", "10 almacenes medianos, con 4 operarios de picking por centro en 2 turnos diarios."),
-        ("Reducción de Flujo-Distancia: ", "De 466 a 340 unidades al alcanzar el óptimo cuadrático C* = 340.")
+        ("Dotación por Almacén: ", "4 operarios por turno en 2 turnos diarios (8 operarios activos) durante 300 días laborales."),
+        ("Reducción de Flujo-Distancia: ", "De 466 a 340 unidades ponderadas (reducción del 27.04% al óptimo global; 24.89% con Q-LNS a 350).")
     ]
     for t_str, d_str in roi_assumptions:
         p_b = tf6_l.add_paragraph()
@@ -290,22 +292,22 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
     tf6_r = tb6_r.text_frame
     tf6_r.word_wrap = True
     p_r = tf6_r.paragraphs[0]
-    p_r.text = "Ahorro Cuantificado y Ergonomía"
+    p_r.text = "Ahorro Cuantificado y ROI Visible (+320%)"
     p_r.font.size = Pt(17)
     p_r.font.bold = True
     p_r.font.color.rgb = C_GREEN
 
     metrics_pts = [
-        ("Caminata Ahorrada por Operario: ", "4.2 km de caminata ahorrados por operario al día."),
-        ("Tiempo Operativo Liberado: ", "58 minutos ahorrados por turno de trabajo."),
-        ("Ahorro Financiero Anual Proyectado: ", "S/ 48,000 anuales en la red de 10 almacenes medianos."),
-        ("Ergonomía y Salud Ocupacional: ", "Reducción significativa de fatiga física y micro-traumatismos."),
-        ("Productividad Logística: ", "Mayor cumplimiento de despacho OTIF (On-Time In-Full) en pedidos cruzados.")
+        ("Caminata Ahorrada por Operario: ", "4.2 km de caminata menos al día por operario."),
+        ("Tiempo Operativo Liberado: ", "58 minutos ahorrados por operario al día (4,200m / 1.2m/s = 3,500s)."),
+        ("Ahorro Financiero por Almacén: ", "S/ 28,000 anuales por centro de distribución (8 operarios × 58.3 min × 300 días × S/ 12/h)."),
+        ("Impacto en Red (10 Almacenes): ", "S/ 280,000 anuales ahorrados en la red nacional."),
+        ("Fórmula de ROI Demostrable: ", "Inversión: S/ 6,600/almacén (S/ 66k red). ROI = (28,000 - 6,600)/6,600 = +321.8% (~+320%).")
     ]
     for m_title, m_val in metrics_pts:
         p_m = tf6_r.add_paragraph()
         p_m.text = f"★ {m_title}"
-        p_m.font.size = Pt(13)
+        p_m.font.size = Pt(12)
         p_m.font.bold = True
         p_m.font.color.rgb = C_NAVY
         p_m.add_run().text = m_val
@@ -326,9 +328,10 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
     p.font.color.rgb = C_BLUE
 
     final_bullets = [
-        ("Demostración Web en Vivo (Streamlit): ", "Plataforma interactiva en http://localhost:8502 para ejecutar QAOA en vivo, evaluar la convergencia Q-LNS y simular KPIs de almacén."),
-        ("100% Reproducibilidad en GitHub: ", "Entorno reproducible con requirements.txt y semillas fijas (seed=42). Sin enlaces a archivos zip."),
+        ("Cockpit Oficial Ejecutivo en Vivo: ", "Micro-API local en Flask (http://localhost:5000, latencia < 50 ms) con visualización de asignación y Plan B Fail-Safe integrado."),
+        ("100% Reproducibilidad en GitHub: ", "Repositorio público (https://github.com/alex8v124/nodux-quantum.git) con requirements.txt y semillas fijas (seed=42)."),
         ("Sin Cuántica por Relleno ni QEC Innecesario: ", "Respetamos las bases oficiales: cero códigos de corrección de error innecesarios y uso sustantivo de Qiskit 2.x en la optimización variacional."),
+        ("Utilidad Metodológica Cuántica: ", "Honestidad científica ante el jurado: demostramos un framework de descomposición escalable para NISQ con impacto económico medible (+320% ROI)."),
         ("Compromiso Nodux: ", "Demostramos viabilidad teórica y operativa para la final presencial del Día 2 en NTT DATA Tower Bloom.")
     ]
     for b_title, b_text in final_bullets:

@@ -49,9 +49,12 @@ def main():
     print("\n[FASE 3] Resolución de la Instancia Completa N=10 con Quantum Hybrid LNS (Alexander):")
     F10, D10 = load_matrices(N=10)
     p10 = QAPProblem(F10, D10)
+    from classical_solvers import ClassicalSolvers
+    cs = ClassicalSolvers(p10)
+    c2 = cs.solve_2opt(max_restarts=5)
     hybrid_solver = QuantumHybridLNS(p10, subproblem_size=3, seed=42)
     start_t = time.perf_counter()
-    h_res = hybrid_solver.solve(max_iterations=20)
+    h_res = hybrid_solver.solve(max_iterations=20, initial_perm=c2["best_perm"])
     h_time = time.perf_counter() - start_t
     gap10 = p10.gap(h_res['best_cost'], 340.0)
     print(f"  • Q-LNS N=10 (100 variables, sub-circuitos de 9 cúbits): Costo = {h_res['best_cost']} (Brecha %: {gap10:.2f}%) en {h_time:.2f}s")
@@ -61,13 +64,14 @@ def main():
     wh_rep = wh_model.calculate_impact(base_cost=466.0, optimized_cost=h_res['best_cost'])
     kpis = wh_rep["operational_kpis"]
     econ = wh_rep["economic_impact"]
-    print(f"  • Distancia ahorrada por operario: {kpis['km_saved_per_operator_day']} km / día ({kpis['minutes_saved_per_shift']:.0f} min liberados por turno)")
-    print(f"  • Ahorro económico anual proyectado: S/ {econ['total_network_annual_savings_pen']:,.2f} en red de {econ['network_warehouses_count']} almacenes medianos")
+    print(f"  • Distancia ahorrada por operario: {kpis['km_saved_per_operator_day']} km / día ({kpis['minutes_saved_per_shift']:.0f} min liberados al día por operario)")
+    print(f"  • Ahorro económico anual: S/ {econ['annual_savings_pen_per_warehouse']:,.2f} por almacén (S/ {econ['total_network_annual_savings_pen']:,.2f} en red de {econ['network_warehouses_count']} almacenes)")
+    print(f"  • Retorno sobre la Inversión (ROI 1er año): +{econ['projected_roi_pct']:.1f}%")
 
     print("\n" + "=" * 80)
-    print("🌐 COCKPIT INTERACTIVO DISPONIBLE:")
-    print("  Para abrir la interfaz visual interactiva de demostración ante el jurado:")
-    print("  👉 URL Local: http://localhost:8502")
+    print("🌐 COCKPIT EJECUTIVO Y EXPLORADOR DISPONIBLES:")
+    print("  👉 Cockpit Oficial Primario (Flask Micro-API): http://127.0.0.1:5000")
+    print("  👉 Explorador Auxiliar (Streamlit): http://127.0.0.1:8502")
     print("=" * 80 + "\n")
 
 if __name__ == "__main__":

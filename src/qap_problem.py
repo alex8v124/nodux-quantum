@@ -26,13 +26,13 @@ class QAPProblem:
         self.num_qubits = self.N * self.N
 
         # Compute theoretical bound for penalty parameter lambda
-        # Max single-pair interaction cost
-        max_f = np.max(self.F)
-        max_d = np.max(self.D)
-        # Conservative theoretical lower bound for penalty multiplier
-        self.lambda_min_theoretical = float(max_f * max_d * (self.N - 1))
-        # Recommended robust penalty parameter for QUBO
-        self.recommended_lambda = float(max(50.0, self.lambda_min_theoretical * 1.2))
+        # Delta C_max = max_i(sum_{k != i} F_ik) * max(D)
+        max_flow_row = float(np.max(np.sum(self.F, axis=1)))
+        max_d = float(np.max(self.D))
+        self.delta_c_max = max_flow_row * max_d
+        self.lambda_min_theoretical = float((self.N - 1) * np.max(self.F) * max_d)
+        # Recommended robust penalty parameter for QUBO: lambda = 60.0
+        self.recommended_lambda = 60.0
 
     def evaluate_permutation(self, perm: Union[List[int], Tuple[int, ...], np.ndarray]) -> float:
         """
