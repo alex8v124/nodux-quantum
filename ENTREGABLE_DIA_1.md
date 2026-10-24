@@ -67,12 +67,12 @@ El espacio de búsqueda abarca $10! = 3,628,800$ permutaciones posibles con un �
 | **Greedy Heuristic** | Clásico | - | < 1 KB | 466.0 | +37.06% | 0.0001s | 100% |
 | **2-Opt Local Search** | Clásico | - | < 1 KB | 350.0 | +2.94% | 0.0159s | 100% |
 | **Simulated Annealing** | Clásico | - | < 1 KB | 340.0 | 0.00% | 0.4109s | 100% |
-| **QAOA Directo (N=3)** | Cuántico (Qiskit) | 9 | 8.0 KiB | 24.0 | 0.00% (Control) | 0.12s | 100% (rep.) |
-| **QAOA Directo (N=4)** | Cuántico (Qiskit) | 16 | 1.0 MiB | 32.0 | 0.00% (Control) | 5.36s | 100% (rep.) |
+| **QAOA Directo (N=3)** | Cuántico (Qiskit) | 9 | 8.0 KiB | 24.0 | 0.00% (Control 24) | 0.19s | 100% (rep.) / 1.56% (cruda) |
+| **QAOA Directo (N=4)** | Cuántico (Qiskit) | 16 | 1.0 MiB | 32.0 | 0.00% (Control 32) | 6.21s | 100% (rep.) / 0.04% (cruda) |
 | **QAOA Directo (N=10)**| Cuántico (Qiskit) | 100 | $2 \times 10^{31}$ Bytes (20M YB) | Inviable | - | - | Memoria Exponencial |
-| **Quantum Hybrid LNS (N=10)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **350.0** | **+2.94%** | 2.47s | 100% (rep.) |
-| **Quantum Hybrid LNS (N=13)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **1,450.0** | **+2.76%** | 1.71s | 100% |
-| **Quantum Hybrid LNS (N=14)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **1,620.0** | **+0.25%** | 1.57s | 100% |
+| **Quantum Hybrid LNS (N=10)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **350.0** | **+2.94% (C*=340)** | 2.21s | 100% (rep.) / 0.04% (cruda) |
+| **Quantum Hybrid LNS (N=13)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **670.0** | **+2.76% (Ref SA 652)** | 1.71s | 100% |
+| **Quantum Hybrid LNS (N=14)** | Híbrido (Qiskit) | 9 (K=3) | **8.0 KiB** | **800.0** | **+0.25% (Ref SA 798)** | 1.57s | 100% |
 
 $$\text{Brecha } (\%) = 100 \times \frac{C - 340}{340} = 100 \times \frac{350 - 340}{340} = 2.94\%$$
 

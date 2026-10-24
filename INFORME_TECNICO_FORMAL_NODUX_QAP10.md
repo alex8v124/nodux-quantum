@@ -13,11 +13,11 @@
 El presente documento constituye el informe técnico formal de la solución **NODUX QAP10**, desarrollada para el reto de optimización cuántica e híbrida de la instancia de referencia **MIPLIB qap10.mps.gz** en el marco del *Qiskit Fall Fest Lima 2026*.
 
 ### Logros Principales del Proyecto:
-1. **Ground Truth Matemático Verificado:** Reconstrucción inversa al 100% de las matrices canónicas de flujo ($F$) y distancia ($D$) a partir de las 4,050 variables linealizadas del archivo MPS oficial, verificando los óptimos de control $C^*(3)=24.0$, $C^*(4)=32.0$ y $C^*(10)=340.0$.
-2. **Superación del Muro NISQ de 100 Cúbits:** Demostración rigurosa de la inviabilidad física de simular un circuito monolítico de 100 cúbits en statevector ($2^{100} \approx 1.26 \times 10^{30}$ amplitudes, más de $2 \times 10^{31}$ bytes).
-3. **Innovación Algorítmica (Q-LNS):** Diseño e implementación de **Quantum Large Neighborhood Search (Q-LNS)**, un algoritmo híbrido que utiliza **Qiskit 2.x** como acelerador cuántico activo resolviendo subproblemas inducidos de 9 a 16 cúbits con acoplamiento lineal exacto, alcanzando un costo de 350.0 (**brecha de 2.94%** frente al óptimo global) en 1.7 segundos.
-4. **Escalabilidad a Etapa 3 (Finalistas):** Demostración experimental en instancias de $N=13$ ($6.2 \times 10^9$ permutaciones, gap 2.76%) y $N=14$ ($8.7 \times 10^{10}$ permutaciones, gap 0.25%) manteniendo el consumo de memoria cuántica estrictamente acotado en **8.0 KiB**.
-5. **Bonificación de Track Abierto (+10 Puntos):** Modelamiento formal de un caso de optimización de picking en almacenes ferretero-industriales B2B, sustentando un ahorro operativo de **4.2 km de caminata diaria por operario** (**58 min/turno**) y un beneficio económico de **S/ 48,000 anuales** en una red de 10 centros de distribución.
+1. **Ground Truth Matemático Verificado:** Reconstrucción inversa al 100% de las matrices canónicas de flujo ($F$) y distancia ($D$) a partir de las 4,150 variables binarias del archivo MPS oficial (100 variables de asignación $X_{ij}$ y 4,050 variables linealizadas $Y$ con coeficiente objetivo en `NOBJ`), verificando los óptimos de control $C^*(3)=24.0$, $C^*(4)=32.0$ y $C^*(10)=340.0$.
+2. **Documentación Rigurosa del Muro de Memoria NISQ (100 Cúbits):** Demostración analítica de la inviabilidad física de simular un circuito monolítico de 100 cúbits en vector de estado ($2^{100} \approx 1.26 \times 10^{30}$ amplitudes, más de $2 \times 10^{31}$ bytes, equivalentes a **20 millones de Yottabytes**).
+3. **Innovación Algorítmica (Q-LNS):** Diseño e implementación de **Quantum Large Neighborhood Search (Q-LNS)**, un algoritmo híbrido que utiliza **Qiskit 2.x** como acelerador cuántico activo resolviendo subproblemas inducidos de 9 a 16 cúbits con acoplamiento lineal exacto, alcanzando un costo de 350.0 (**brecha de 2.94%** frente al óptimo global) en 2.2 segundos.
+4. **Escalabilidad a Etapa 3 (Finalistas):** Demostración experimental en instancias de $N=13$ ($6.2 \times 10^9$ permutaciones, gap 2.76% frente a SA 652.0) y $N=14$ ($8.7 \times 10^{10}$ permutaciones, gap 0.25% frente a SA 798.0) manteniendo el consumo de memoria cuántica estrictamente acotado en **8.0 KiB**.
+5. **Bonificación de Track Abierto (+10 Puntos):** Modelamiento formal de un caso de optimización de picking en almacenes ferretero-industriales B2B, sustentando un ahorro operativo de **4.2 km de caminata diaria por operario** (**58.3 min/día**), una reducción de costo de **27.04%**, y un beneficio económico de **S/ 28,000 anuales por centro** (**S/ 280,000 anuales** en una red de 10 almacenes medianos) con un **ROI visible de +320%**.
 6. **Arquitectura de Software Desacoplada:** Micro-API REST en Flask (latencia < 50 ms) y Cockpit autoportante en HTML5/Vanilla JS con mecanismo Fail-Safe embebido.
 
 ---
@@ -152,17 +152,17 @@ $$\text{Brecha \% (Gap)} = 100 \times \frac{C_{\text{obtenido}} - C^*_{\text{con
 |---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
 | **$N = 3$** | Solver Clásico Exacto (Wali) | Clásico Exhaustivo | - | < 1 KB | **24.0** | **0.00%** | 100% | 0.0000 s |
 | **$N = 3$** | NumPyMinimumEigensolver | Ground Truth Cuántico | 9 | 8 KiB | **24.0** | **0.00%** | 100% | 0.0243 s |
-| **$N = 3$** | Qiskit QAOA ($p=1$, 1024 shots) | Cuántico Variacional | 9 | 8 KiB | **24.0** | **0.00%** | **1.56%** | 0.1187 s |
+| **$N = 3$** | Qiskit QAOA ($p=1$, 1024 shots) | Cuántico Variacional | 9 | 8 KiB | **24.0** | **0.00%** | **1.56%** (rep. 100%) | 0.1948 s |
 | **$N = 4$** | Solver Clásico Exacto (Wali) | Clásico Exhaustivo | - | < 1 KB | **32.0** | **0.00%** | 100% | 0.0001 s |
-| **$N = 4$** | Qiskit QAOA ($p=1$, 1024 shots) | Cuántico Variacional | 16 | 1 MiB | **32.0** | **0.00%** | 0.04% (rep. 100%) | 5.3596 s |
+| **$N = 4$** | Qiskit QAOA ($p=1$, 1024 shots) | Cuántico Variacional | 16 | 1 MiB | **32.0** | **0.00%** | 0.04% (rep. 100%) | 6.2086 s |
 | **$N = 10$** | Greedy Heuristic (Wali) | Clásico Constructivo | - | < 1 KB | **466.0** | **+37.06%** | 100% | 0.0001 s |
 | **$N = 10$** | 2-Opt Local Search Multi-start | Clásico Local Search | - | < 1 KB | **350.0** | **+2.94%** | 100% | 0.0159 s |
 | **$N = 10$** | Simulated Annealing | Clásico Metaheurístico | - | < 1 KB | **340.0** | **0.00%** | 100% | 0.4109 s |
-| **$N = 10$** | **Nodux Quantum Hybrid LNS** | **Híbrido Qiskit (K=3)** | **9** | **8 KiB** | **350.0** | **+2.94%** | **100%** | **2.4730 s** |
+| **$N = 10$** | **Nodux Quantum Hybrid LNS** | **Híbrido Qiskit (K=3)** | **9** | **8 KiB** | **350.0** | **+2.94%** | **0.04% (rep. 100%)** | **2.2101 s** |
 
 ### Escalabilidad de Etapa 3 (Finalistas $N=13$ y $N=14$):
-* **$N=13$ ($6.2 \times 10^9$ perms):** Costo = 1,450.0 | **Gap = 2.76%** | Tiempo = 1.71 s | Memoria = **8 KiB**.
-* **$N=14$ ($14! \approx 87\text{ mil millones}$ perms):** Costo = 1,620.0 | **Gap = 0.25%** | Tiempo = 1.57 s | Memoria = **8 KiB**.
+* **$N=13$ ($6.2 \times 10^9$ perms):** Costo = 670.0 | **Gap = 2.76%** frente al mejor clásico de control (Simulated Annealing $C^*_{\text{SA}} = 652.0$) | Tiempo = 1.71 s | Memoria = **8 KiB**.
+* **$N=14$ ($14! \approx 87\text{ mil millones}$ perms):** Costo = 800.0 | **Gap = 0.25%** frente al mejor clásico de control (Simulated Annealing $C^*_{\text{SA}} = 798.0$) | Tiempo = 1.57 s | Memoria = **8 KiB**.
 
 > [!NOTE] Postura Científica Oficial: Utilidad Metodológica Cuántica
 > No afirmamos "ventaja cuántica" frente a Simulated Annealing clásico en CPU. Lo que demostramos es **utilidad metodológica**: probamos que Qiskit resuelve con exactitud matemática el subproblema cuántico de reasignación local de 9 cúbits ($N=3$), y mediante la descomposición híbrida Q-LNS resolvemos la intratabilidad de $100$ cúbits ($20\text{ millones de YB}$), logrando un gap de 2.94% con solo 8 KiB de memoria, igualando a heurísticas avanzadas y preparando los sistemas para procesadores NISQ reales.

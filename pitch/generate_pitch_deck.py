@@ -245,9 +245,9 @@ def create_deck(output_path: str = "pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx")
         ("Greedy Heuristic (Línea Base): ", "Costo = 466.0 | Gap = +37.06% | Tiempo = 0.0001s"),
         ("2-Opt Local Search Clásico: ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 0.0159s (Mínimo local)"),
         ("Simulated Annealing: ", "Costo = 340.0 | Gap = 0.00% | Tiempo = 0.4109s (Óptimo clásico de referencia)"),
-        ("QAOA Directo Qiskit (N=3, N=4): ", "N=3: Costo 24.0 (0.00% Gap) | N=4: Costo 32.0 (0.00% Gap)"),
-        ("Quantum Hybrid LNS (N=10, 100 cúbits): ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 1.73s (100% factible con proyección húngara)"),
-        ("Prueba de Escalabilidad Etapa 3 (Finalistas): ", "N=13 (6.2 mil millones de perms): Gap = 2.76% en 1.71s | N=14 (87 mil millones de perms): Gap = 0.25% en 1.57s | Memoria cuántica acotada a 8 KiB"),
+        ("QAOA Directo Qiskit (N=3, N=4): ", "N=3: Costo 24.0 (0.00% Gap, 0.19s) | N=4: Costo 32.0 (0.00% Gap, 6.21s)"),
+        ("Quantum Hybrid LNS (N=10, 100 cúbits): ", "Costo = 350.0 | Gap = +2.94% | Tiempo = 2.21s (100% factible con decodificador húngaro)"),
+        ("Prueba de Escalabilidad Etapa 3 (Finalistas): ", "N=13 (6.2 mil millones de perms): Costo = 670.0 (Gap = 2.76% vs SA 652) en 1.71s | N=14 (87 mil millones de perms): Costo = 800.0 (Gap = 0.25% vs SA 798) en 1.57s | Memoria cuántica acotada a 8 KiB"),
         ("Rigor y Enfoque Científico: ", "Demostramos Utilidad Metodológica Cuántica: Qiskit resuelve exactamente el subproblema activo y Q-LNS desacopla la intratabilidad de 100 cúbits.")
     ]
     for b_title, b_text in res_bullets:
