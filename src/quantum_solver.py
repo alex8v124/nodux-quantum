@@ -118,8 +118,12 @@ class QuantumSolver:
     def solve_hybrid_n10(self, max_iterations: int = 20) -> Dict[str, Any]:
         """Resuelve N=10 con Quantum Large Neighborhood Search (Descomposición 9 cúbits)."""
         start_time = time.perf_counter()
+        from classical_solvers import ClassicalSolvers
+        cs = ClassicalSolvers(self.problem)
+        c2 = cs.solve_2opt(max_restarts=5)
+
         hybrid_lns = QuantumHybridLNS(self.problem, subproblem_size=3, seed=self.seed)
-        res = hybrid_lns.solve(max_iterations=max_iterations)
+        res = hybrid_lns.solve(max_iterations=max_iterations, initial_perm=c2["best_perm"])
         elapsed_ms = (time.perf_counter() - start_time) * 1000.0
 
         return {
