@@ -1,0 +1,96 @@
+=== PAGE 1 ===
+NODUX • ESPECIFICACIÓN TÉCNICA DE DESPLIEGUE
+Stack de Software, Pipeline Local Desacoplado y Contrato de Datos (QAP10)
+DIRIGIDO A: ALEXANDER (CTO)
+RETO: NTT DATA (TOWER BLOOM)
+1. STACK DE INGENIERÍA: MICRO-API LOCAL + COCKPIT AUTOPORTANTE
+LATENCIA < 50 MS
+Para asegurar máxima estabilidad y una presentación ejecutiva de nivel consultoría sin depender del Wi-Fi de Plaza San Miguel:
+Backend en Python (Flask / FastAPI):
+Puerto local: http://localhost:5000.
+Gestiona el modelado QUBO, qiskit_optimization y los
+solvers cuánticos/clásicos.
+Expone un único endpoint REST seguro: POST
+/api/optimize.
+Frontend Ejecutivo (HTML5 / Vanilla JS):
+Archivo autoportante con clases utilitarias inspiradas en
+Tailwind.
+Consumo asíncrono con fetch() en tiempo real.
+Mecanismo Fail-Safe: Si el backend se detiene, el cliente
+recalcula internamente con permutaciones precalculadas.
+¿Por qué descartamos Streamlit y React? Streamlit tiene estética académica de libreta y recarga toda la página en cada evento; React puro desde
+cero consume más de 45 minutos en resolver dependencias de Node.js que no aportan valor algorítmico al reto.
+2. INSUMOS CRÍTICOS QUE ALEXANDER DEBE EXIGIR A WALI
+DEPENDENCIA INMEDIATA
+Alexander no debe perder tiempo parseando archivos lineales crudos. Wali debe entregarle antes del mediodía:
+matrices_F_D.json: Matrices simétricas de Flujo ($F$) y Distancia ($D$) de $10 \times 10$ extraídas de qap10.mps.gz.
+Submatrices de Control Recortadas: Primeras 3 filas/columnas para $N=3$ y primeras 4 filas/columnas para $N=4$.
+Benchmarking Clásico Certificado: Tiempos exactos de fuerza bruta de Wali ($3! = 6$ permutaciones $\rightarrow$ 24; $4! = 24$
+permutaciones $\rightarrow$ 32) para alimentar la comparativa de telemetría.
+Mapeo Semántico B2B Nodux: Nombres reales de 10 productos industriales (clavos, discos de corte, soldadura) y 10 bahías para el panel
+interactivo.
+3. CONTRATO DE INTEGRACIÓN JSON (ENDPOINT: POST /API/OPTIMIZE)
+        // Request hacia Backend (POST) { "scale_n": 3, 
+"lambda_penalty": 50, "shots": 1024, "algorithm": 
+"qaoa" // "classical_exact", "qaoa" }
+       
+        // Response desde Backend (HTTP 200 OK) { 
+"status": "success", "optimal_cost": 24, 
+"control_target": 24, "gap_percentage": 0.0, 
+"feasibility_rate": 0.92, "execution_time_ms": 1180, 
+"assignment_vector": [1, 2, 0] }
+       
+NODUX • Especificación Técnica Alexander (CTO)
+Arquitectura, Insumos y Contrato API • Página 1 de 2
+
+
+=== PAGE 2 ===
+NODUX • FRONTEND, TRAMPAS TÉCNICAS Y CHECKLIST
+Componentes de UI, Cuidados en QAP10 y Protocolo de Feature Freeze
+FASE DE INTEGRACIÓN Y CIERRE
+4. ARQUITECTURA DE INTERFAZ: EL COCKPIT DE DECISIONES B2B
+PANTALLA DEL JURADO
+La interfaz en index.html debe organizarse en una grilla ejecutiva de dos columnas para una demostración fluida:
+Columna Izquierda: Panel de Parámetros
+Selector de Escala: Botones rápidos para alternar entre $N=3$
+(Control 24), $N=4$ (Control 32) y $N=10$ (Óptimo 340).
+Slider de Penalizador λ: Rango dinámico (10 a 200). Permite
+demostrar al jurado cómo colapsa la factibilidad con λ bajo.
+Selector de Motor: Alternar entre Fuerza Bruta Clásica y Qiskit
+Aer (QAOA).
+Columna Derecha: Telemetría y Asignación
+4 Tarjetas KPI: Costo Obtenido, Gap vs Óptimo (%), Tasa de
+Factibilidad (%) y Tiempo de Cómputo (ms).
+Matriz Gráfica: Cuadrícula visual de $N \times N$ donde las
+celdas asignadas ($x_{ij}=1$) brillan en verde esmeralda.
+Límites NISQ: Módulo explicativo de por qué $N=10$ no se
+resuelve vía statevector y cómo opera la descomposición
+híbrida.
+5. TRES TRAMPAS MATEMÁTICAS CRÍTICAS EN QAP10
+EVITAR DESCALIFICACIÓN
+Conteo Único de Pares ($i < k$): Las bases estipulan que cada par de elementos se evalúa una sola vez. Si en el código utilizas bucles con
+$i \ne k$, el costo se duplicará exactamente arrojando 48 y 64 en vez de 24 y 32, invalidando la evaluación de control.
+Distinción entre Costo Real y Energía Penalizada: El Hamiltoniano arroja $H(x) = C(x) + \text{Penalizaciones}$. El resultado que se expone
+al jurado y con el que se calcula el Gap (%) debe ser exclusivamente el costo factible $C(x)$.
+Límite Físico de Memoria para $N=10$: Para 10 elementos se requieren 100 variables binarias. Simular 100 cúbits con statevector requiere
+$2^{100} \times 16$ bytes de memoria (físicamente imposible). Si el usuario selecciona $N=10$, el sistema debe ejecutar una heurística
+clásica o subcircuito cuántico por descomposición.
+6. ESTRUCTURA DE REPOSITORIO GITHUB
+        nodux-qap10-quantum/ ├── data/ │ └── 
+matrices_F_D.json ├── src/ │ ├── qubo_builder.py │ 
+├── classical_solver.py │ ├── quantum_solver.py │ 
+└── backend.py ├── ui/ │ └── index.html ├── demo/ │ 
+└── backup_demo.mp4 ├── requirements.txt └── 
+README.md
+       
+7. CHECKLIST DE CONGELAMIENTO (2:30 P. M.)
+[ ] Código funcional probado en local con semillas fijas.
+[ ] Validación de óptimos exactos: N=3 (24) y N=4 (32).
+[ ] Archivo requirements.txt probado sin librerías fantasma.
+[ ] Clip de video de contingencia grabado (60 segundos).
+[ ] Repositorio en GitHub público con README limpio.
+[ ] 3:00 p. m.: Los 4 integrantes presentes en la mesa.
+NODUX • Especificación Técnica Alexander (CTO)
+Cockpit UI, Cuidados Matemáticos y Cierre • Página 2 de 2
+
+
