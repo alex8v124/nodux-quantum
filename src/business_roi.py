@@ -89,6 +89,10 @@ class WarehousePickingImpactModel:
             }
         }
 
+# Alias for backward compatibility
+BusinessImpactModel = WarehousePickingImpactModel
+__all__ = ["WarehousePickingImpactModel", "BusinessImpactModel"]
+
 if __name__ == "__main__":
     model = WarehousePickingImpactModel()
     res = model.calculate_impact(base_cost=466.0, optimized_cost=340.0)

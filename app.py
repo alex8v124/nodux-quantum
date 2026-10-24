@@ -10,6 +10,7 @@ Cumple con la Fase 4 del Manual de Operaciones de Alexander (SOP):
 
 import sys
 import os
+import math
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 import streamlit as st
@@ -24,7 +25,7 @@ from classical_baseline import WaliClassicalSolver
 from qubo_builder import QUBOBuilder
 from qiskit_solver import QiskitQAPSolver
 from quantum_hybrid import QuantumHybridLNS
-from business_roi import WarehousePickingImpactModel
+from business_roi import WarehousePickingImpactModel, BusinessImpactModel
 
 # Product families for the B2B Warehouse Picking narrative
 PRODUCT_FAMILIES = [
