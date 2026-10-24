@@ -1,11 +1,17 @@
 .venv/
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
 .DS_Store
+Thumbs.db
 *.log
 docs a auditar/
 .env
 .env.*
-
-
+.tmp/
+*.tmp
