@@ -18,8 +18,9 @@
 ---
 
 ### 2. ENLACES DE ENTREGA OBLIGATORIOS (PORTAL WEB)
-* **Repositorio GitHub:** Código estructurado con `requirements.txt` y semillas fijas (`seed=42`).
-* **Demostración Interactiva:** Web App en Streamlit corriendo en `http://localhost:8502`.
+* **Repositorio GitHub Oficial:** [https://github.com/alex8v124/nodux-quantum.git](https://github.com/alex8v124/nodux-quantum.git)
+* **Cockpit Oficial Ejecutivo (Primario):** Web App Vanilla JS + Micro-API Flask en `http://127.0.0.1:5000` (con Fail-Safe Plan B integrado).
+* **Explorador Interactivo Auxiliar:** Web App en Streamlit corriendo en `http://127.0.0.1:8502`.
 * **Presentación PPT Oficial:** [`pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx`](file:///c:/Users/alex0/Downloads/Hackaton/Analisis%20-%20Desarrollo/pitch/NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx)
 * **Guion de Pitch Cronometrado (2:45 min):** [`pitch/GUION_PITCH_3_MINUTOS.md`](file:///c:/Users/alex0/Downloads/Hackaton/Analisis%20-%20Desarrollo/pitch/GUION_PITCH_3_MINUTOS.md)
 
@@ -83,9 +84,15 @@ uv venv .venv --python 3.11
 # 2. Instalar dependencias exactas
 uv pip install -r requirements.txt
 
-# 3. Correr suite de benchmarks oficial
+# 3. Correr suite de benchmarks y telemetría oficial
+python benchmark.py
 python src/scalability_bench.py
 
-# 4. Lanzar la demo interactiva
+# 4. Lanzar el Cockpit Oficial Primario (Flask + UI)
+python src/backend.py
+# Acceso inmediato en navegador: http://127.0.0.1:5000
+
+# 5. Opcional: Lanzar Explorador Auxiliar (Streamlit)
 streamlit run app.py --server.port 8502
+# Acceso: http://127.0.0.1:8502
 ```

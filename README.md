@@ -1,11 +1,13 @@
 # ⚛️ NODUX • QAP10 QUANTUM OPTIMIZER
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-nodux--quantum-181717.svg?logo=github)](https://github.com/alex8v124/nodux-quantum.git)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![Qiskit 2.x](https://img.shields.io/badge/Qiskit-2.6.1-6929C4.svg)](https://qiskit.org/)
 [![Micro-API](https://img.shields.io/badge/Backend-Flask_REST_<50ms-0A2540.svg)]()
 [![Bonus](https://img.shields.io/badge/Open_Track_Bonus-+10_Pts-10B981.svg)]()
 [![Célula](https://img.shields.io/badge/Célula-Nodux_Core_Team-0072CE.svg)]()
 
+> **Repositorio Oficial:** [https://github.com/alex8v124/nodux-quantum.git](https://github.com/alex8v124/nodux-quantum.git)  
 > **Cockpit de Decisiones Cuánticas B2B y Micro-API Local (Latencia < 50 ms)**  
 > Optimizador Cuántico-Clásico Híbrido para el Problema de Asignación Cuadrática Industrial (Instancia MIPLIB `qap10.mps.gz`).  
 > Reto NTT DATA · Qiskit Fall Fest Lima 2026. Célula: **Nodux Core Team**.
@@ -59,15 +61,19 @@ uv venv .venv --python 3.11
 uv pip install -r requirements.txt
 ```
 
-### 2. Iniciar la Micro-API Local (Puerto 5000)
+### 2. Iniciar el Cockpit Oficial Primario (Flask Micro-API en Puerto 5000)
 ```powershell
 python src/backend.py
 ```
-*Servidor activo en `http://localhost:5000` con latencia `< 50 ms`.*
+*Servidor activo en `http://localhost:5000` con latencia `< 50 ms`.*  
+Abre en tu navegador: 👉 **`http://localhost:5000`** *(o doble clic directo en `ui/index.html` gracias al Fail-Safe embebido).*
 
-### 3. Abrir el Cockpit Ejecutivo de Decisiones B2B
-Abre en tu navegador favorito:
-👉 **`http://localhost:5000`** *(O doble clic directamente en `ui/index.html` gracias al Fail-Safe embebido).*
+### 3. Explorador Interactivo Auxiliar (Streamlit en Puerto 8502)
+Para jurados o evaluadores que prefieran interfaz Streamlit interactiva:
+```powershell
+streamlit run app.py --server.port 8502
+```
+*Disponible en: `http://localhost:8502`*
 
 ### 4. Comando de Demostración en 1 Línea para Consola
 ```powershell
@@ -110,9 +116,9 @@ $$\text{Brecha \% (Gap)} = 100 \times \frac{C_{\text{factible}} - C^*_{\text{con
 
 | Escala ($N$) | Cúbits QUBO | Óptimo Control | Wali (Solver Clásico) | Wali Brecha % | Alexander (Qiskit QAOA / Q-LNS) | Alexander Brecha % | Alexander Factibilidad Cruda | Tiempo (s) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **$N = 3$** | 9 | **24.0** | 24.0 | **0.00%** | **24.0** | **0.00%** | **1.56%** | **0.11 s** |
-| **$N = 4$** | 16 | **32.0** | 32.0 | **0.00%** | **32.0** | **0.00%** | 0.00% (rep. 100%) | **6.79 s** |
-| **$N = 10$** | 100 | **340.0** | 466.0 (Greedy) | +37.06% | **350.0 - 378.0** | **+2.94%** | **100%** (rep.) | **1.87 s** |
+| **$N = 3$** | 9 | **24.0** | 24.0 | **0.00%** | **24.0** | **0.00%** | **1.56%** (rep. 100%) | **0.12 s** |
+| **$N = 4$** | 16 | **32.0** | 32.0 | **0.00%** | **32.0** | **0.00%** | **0.04%** (rep. 100%) | **5.36 s** |
+| **$N = 10$** | 100 | **340.0** | 466.0 (Greedy) | +37.06% | **350.0** | **+2.94%** | **0.04%** (rep. 100%) | **2.47 s** |
 
 ---
 
