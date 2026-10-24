@@ -61,6 +61,26 @@ class ApiClient {
       timeout: 5000
     });
   }
+
+  static async connectIbm(params) {
+    return this.request("/api/ibm/connect", {
+      method: "POST",
+      body: JSON.stringify(params),
+      timeout: 10000
+    });
+  }
+
+  static async getIbmBackends() {
+    return this.request("/api/ibm/backends", { method: "GET", timeout: 5000 });
+  }
+
+  static async transpileIbm(params) {
+    return this.request("/api/ibm/transpile", {
+      method: "POST",
+      body: JSON.stringify(params),
+      timeout: 15000
+    });
+  }
 }
 
 window.ApiClient = ApiClient;

@@ -27,6 +27,9 @@ if SRC_DIR not in sys.path:
 from classical_solver import ClassicalSolver
 from quantum_solver import QuantumSolver
 from business_roi import WarehousePickingImpactModel
+from ibm_quantum_service import IBMQuantumService
+
+ibm_service = IBMQuantumService()
 
 app = Flask(__name__, static_folder=UI_DIR)
 CORS(app)
@@ -261,6 +264,65 @@ def calculate_roi():
             "status": "success",
             "report": report
         })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+# ----------------- IBM QUANTUM CLOUD & QPU ENDPOINTS -----------------
+@app.route("/api/ibm/connect", methods=["POST"])
+@app.route("/ibm/connect", methods=["POST"])
+def ibm_connect():
+    """Autentica con IBM Quantum Platform o IBM Cloud."""
+    req = request.get_json(force=True) or {}
+    token = req.get("token", "").strip()
+    channel = req.get("channel", "ibm_quantum_platform")
+    instance = req.get("instance")
+    res = ibm_service.connect(token, channel=channel, instance=instance)
+    return jsonify(res)
+
+@app.route("/api/ibm/backends", methods=["GET"])
+@app.route("/ibm/backends", methods=["GET"])
+def ibm_backends():
+    """Retorna lista de procesadores reales y estado de colas."""
+    backends = ibm_service.get_backends_info()
+    return jsonify({
+        "connected": ibm_service._connected,
+        "backends": backends
+    })
+
+@app.route("/api/ibm/transpile", methods=["POST"])
+@app.route("/ibm/transpile", methods=["POST"])
+def ibm_transpile():
+    """
+    Transpila el circuito QAP para la arquitectura física Heavy-Hex de 127 cúbits.
+    Calcula descomposición a compuertas nativas (rz, sx, x, cx) y fidelidad NISQ.
+    """
+    try:
+        req = request.get_json(force=True) or {}
+        n = int(req.get("scale_n", 3))
+        backend_name = req.get("backend_name", "ibm_brisbane")
+        opt_level = int(req.get("optimization_level", 2))
+
+        data = load_data()
+        F_full = np.array(data["F"])
+        D_full = np.array(data["D"])
+        from qap_problem import QAPProblem
+        from quantum_qaoa import QuantumQAOA
+
+        sub_n = min(n, 3) # QAOA kernel acotado a 9 cúbits
+        prob = QAPProblem(F_full[:sub_n, :sub_n], D_full[:sub_n, :sub_n])
+        qaoa = QuantumQAOA(prob, reps=1)
+
+        report = ibm_service.transpile_qap_circuit(
+            qaoa.circuit,
+            backend_name=backend_name,
+            optimization_level=opt_level
+        )
+        report["scale_n"] = n
+        report["subproblem_qubits"] = sub_n * sub_n
+        return jsonify(report)
     except Exception as e:
         return jsonify({
             "status": "error",

@@ -99,6 +99,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       case "circuit":
         window.CircuitView.render(elWorkspaceContent, state);
         break;
+      case "ibm":
+        window.IbmView.render(elWorkspaceContent, state);
+        break;
     }
   }
 
