@@ -264,9 +264,12 @@ with tab_quantum_lab:
         st.write(f"**Permutación Reparada:** `{qaoa_res['repaired_perm']}`")
 
     if run_h_btn:
-        with st.spinner("Ejecutando Quantum Large Neighborhood Search en Qiskit..."):
+        with st.spinner("Ejecutando Quantum Large Neighborhood Search en Qiskit (Warm-Start 2-Opt)..."):
+            from classical_solvers import ClassicalSolvers
+            cs = ClassicalSolvers(problem, seed=42)
+            warm_start = cs.solve_2opt(max_restarts=5)["best_perm"]
             h_solver = QuantumHybridLNS(problem, subproblem_size=3, seed=42)
-            h_out = h_solver.solve(max_iterations=20)
+            h_out = h_solver.solve(max_iterations=25, initial_perm=warm_start)
 
         c1, c2, c3 = st.columns(3)
         c1.metric("Costo Factible Final", f"{h_out['best_cost']}")

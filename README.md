@@ -33,11 +33,16 @@ nodux-qap10-quantum/
 │   └── qap10.sol.gz            # Solución de referencia oficial MIPLIB (340.0)
 ├── src/
 │   ├── qubo_builder.py         # Formulación QUBO, penalizador lambda y mapeo Ising
-│   ├── classical_solver.py     # Solver clásico exacto y heurístico de Wali
+│   ├── classical_solver.py     # Solver clásico exacto y 2-Opt ILS genuino de Wali
 │   ├── quantum_solver.py       # Solvers cuánticos QAOA (Aer) y descomposición Q-LNS
-│   └── backend.py              # Micro-API local en Flask (POST /api/optimize)
-├── ui/
-│   └── index.html              # Cockpit ejecutivo HTML5/Vanilla JS autoportante con Fail-Safe
+│   ├── business_roi.py         # Modelo de impacto económico S/ 280,000 en almacén B2B
+│   └── backend.py              # Micro-API local en Flask (Endpoints REST /api/...)
+├── ui/                         # Plataforma Empresarial de Decisiones Cuánticas
+│   ├── css/                    # Design System (tokens, layout industrial, componentes)
+│   ├── js/                     # Arquitectura modular (api client, state store, renderers)
+│   └── index.html              # Shell semántico estructurado de alta densidad
+├── tests/
+│   └── test_system.py          # Suite de pruebas automatizadas CI/CD (100% passing)
 ├── demo/
 │   ├── README.md               # Pauta técnica para el video de contingencia de 60s
 │   └── backup_demo.mp4         # Video de respaldo grabado
@@ -45,7 +50,8 @@ nodux-qap10-quantum/
 │   ├── NODUX_Pitch_Deck_QAP10_NTT_DATA.pptx # Diapositivas oficiales del pitch (16:9)
 │   └── GUION_PITCH_3_MINUTOS.md            # Guion cronometrado para los 4 integrantes
 ├── benchmark.py                # Telemetría oficial Alexander vs Wali
-├── run_demo.py                 # Comando oficial de ejecución en 1 línea
+├── run_demo.py                 # Comando oficial de ejecución en consola en 1 línea
+├── run_platform.bat            # Lanzador unificado en 1 clic offline para Windows
 ├── requirements.txt            # Dependencias fijas reproducibles
 └── README.md                   # Documentación técnica
 ```
